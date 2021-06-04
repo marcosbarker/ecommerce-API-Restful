@@ -8,7 +8,7 @@
 <h3 align="center">Professor Alexandre de Oliveira Paixão</h3>
 </br>
 
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[🚧**Lista de Acompanhamento das Etapas do Projeto**🏗️](https://github.com/marcosbarker/ecommerce-API-Restful/issues/1)
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[🚧**Lista de Acompanhamento das Etapas do Projeto**🏗️](https://github.com/marcosbarker/ecommerce-API-Restful/issues/1)
 
 ## 🔑API para um Ecommerce atendendo os seguintes Requisitos:
 - Utilizar um sistema de login de usuários:<br> 
