@@ -1,6 +1,6 @@
 <a name="back-to-top">
 
-[🚧**Issues**](https://github.com/marcosbarker/ecommerce-API-Restful/issues/1)
+[🚧**Lista de Acompanhamento das Etapas do Projeto**🏗️](https://github.com/marcosbarker/ecommerce-API-Restful/issues/1)
 <p align="center">
   <img height="400px" src="https://freevector-images.s3.amazonaws.com/uploads/vector/preview/36682/36682.png" alt="logo ecommerce"/>
 </p>
