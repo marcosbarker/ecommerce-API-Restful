@@ -1,6 +1,4 @@
 <a name="back-to-top">
-
-[🚧**Lista de Acompanhamento das Etapas do Projeto**🏗️](https://github.com/marcosbarker/ecommerce-API-Restful/issues/1)
 <p align="center">
   <img height="400px" src="https://freevector-images.s3.amazonaws.com/uploads/vector/preview/36682/36682.png" alt="logo ecommerce"/>
 </p>
@@ -9,6 +7,8 @@
 </p>
 <h3 align="center">Professor Alexandre de Oliveira Paixão</h3>
 </br>
+
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[🚧**Lista de Acompanhamento das Etapas do Projeto**🏗️](https://github.com/marcosbarker/ecommerce-API-Restful/issues/1)
 
 ## 🔑API para um Ecommerce atendendo os seguintes Requisitos:
 - Utilizar um sistema de login de usuários:<br> 
