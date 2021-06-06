@@ -1,5 +1,5 @@
 package com.residencia.ecommerce.services;
 
-public class PedidosService {
+public class PedidoService {
 
 }

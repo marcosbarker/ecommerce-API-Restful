@@ -1,5 +1,5 @@
 package com.residencia.ecommerce.repositories;
 
-public interface ProdutosPedidosRepository {
+public interface ProdutoPedidoRepository {
 
 }

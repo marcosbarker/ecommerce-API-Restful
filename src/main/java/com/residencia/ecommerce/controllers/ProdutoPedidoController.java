@@ -1,5 +1,5 @@
 package com.residencia.ecommerce.controllers;
 
-public class ProdutosPedidosController {
+public class ProdutoPedidoController {
 
 }
