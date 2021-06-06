@@ -1,5 +1,9 @@
 package com.residencia.ecommerce.repositories;
 
-public interface ProdutoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.residencia.ecommerce.entities.Produto;
+
+public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 
 }
