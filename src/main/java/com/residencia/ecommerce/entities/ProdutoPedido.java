@@ -14,7 +14,7 @@ public class ProdutoPedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "produtoPedidoId")
-	private String produtoPedidoId;
+	private Integer produtoPedidoId;
 	
 	@Column(name = "produtoId")
 	private Integer produtoId;
@@ -28,11 +28,11 @@ public class ProdutoPedido {
 	@Column(name = "preco")
 	private Integer preco;
 
-	public String getProdutoPedidoId() {
+	public Integer getProdutoPedidoId() {
 		return produtoPedidoId;
 	}
 
-	public void setProdutoPedidoId(String produtoPedidoId) {
+	public void setProdutoPedidoId(Integer produtoPedidoId) {
 		this.produtoPedidoId = produtoPedidoId;
 	}
 
