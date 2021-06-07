@@ -39,7 +39,7 @@
 🖋**A Api deverá utilizar como documentação a ferramenta do Swagger.**<br><br> 
 ⚡**Desafio Extra (Opcional): opção de esqueci minha senha com envio de um código de verificação para o e-mail e posterior verificação se esse código pertence ao cliente.**<br> 
 <br><br>
-<img align="center" src="src/main/utilities/diagrama.png">
+<img align="center" src="utilities/diagrama.png">
 <br><br> 
 
 ## <img  height="45px" align="center" src="https://github.com/marcosbarker/serratec.residencia/blob/main/assets/stockrocketgif.gif"> Tecnologia Utilizada
