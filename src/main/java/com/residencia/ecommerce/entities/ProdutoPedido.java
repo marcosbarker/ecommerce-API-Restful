@@ -5,28 +5,40 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "produtoPedido")
+@Table(name = "produtos_pedidos")
 public class ProdutoPedido {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "produtoPedidoId")
+	@Column(name = "produtoPedidoid")
 	private Integer produtoPedidoId;
-	
-	@Column(name = "produtoId")
+
+	@Column(name = "produtoid")
 	private Integer produtoId;
-	
+
 	@Column(name = "pedidosId")
 	private Integer pedidosId;
-	
+
 	@Column(name = "quantidade")
 	private Integer quantidade;
-	
+
 	@Column(name = "preco")
 	private Integer preco;
+
+	// relacionamento com produto
+	@ManyToMany
+	@JoinColumn(name = "produtoid", referencedColumnName = "produtoid")
+	private Produto produto;
+
+	// relacionamento com pedido
+	@ManyToMany
+	@JoinColumn(name = "pedidoid", referencedColumnName = "pedidoid")
+	private Pedido pedido;
 
 	public Integer getProdutoPedidoId() {
 		return produtoPedidoId;

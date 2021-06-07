@@ -1,8 +1,6 @@
 package com.residencia.ecommerce.services;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +11,32 @@ import com.residencia.ecommerce.repositories.CategoriaRepository;
 public class CategoriaService {
 
 	@Autowired
-	public CategoriaRepository categoriaRepository;
+	CategoriaRepository categoriaRepository;
+
+	public Categoria findById(Integer id) {
+		return categoriaRepository.findById(id).get();
+	}
 
 	public List<Categoria> findAll() {
 		return categoriaRepository.findAll();
-		
 	}
-	
-	public Optional<Categoria> findById(Integer id){
-		return categoriaRepository.findById(id);
-		
+
+	public Long count() {
+		return categoriaRepository.count();
 	}
-	
+
+	public Categoria save(Categoria categoria) {
+		Categoria novaCategoria = categoriaRepository.save(categoria);
+		return novaCategoria;
+	}
+
+	public Categoria update(Categoria categoria, Integer id) {
+		categoria.setCategoriaId(id);
+		return this.save(categoria);
+	}
+
+	public void delete(Integer id) {
+		categoriaRepository.deleteById(id);
+	}
+
 }
