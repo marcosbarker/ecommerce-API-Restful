@@ -38,9 +38,16 @@
 ⚠️🔃**Os principais campos deverão ser validados, (cpf, produto não poderá ter valores negativos, etc.) e todas as exceções deverão serem tratadas.**<br><br> 
 🖋**A Api deverá utilizar como documentação a ferramenta do Swagger.**<br><br> 
 ⚡**Desafio Extra (Opcional): opção de esqueci minha senha com envio de um código de verificação para o e-mail e posterior verificação se esse código pertence ao cliente.**<br> 
-<br><br>
-<img align="center" src="utilities/diagrama.png">
-<br><br> 
+<br>
+<details>
+<summary>Diagrama ER</summary>
+<img align="center" src="assets/diagrama.png">
+</details>
+<details>
+<summary>Legenda Cardinalidade</summary>
+<img align="center" height="400px" src="assets/cardinalidade.jpeg">
+</details>
+<br>
 
 ## <img  height="45px" align="center" src="https://github.com/marcosbarker/serratec.residencia/blob/main/assets/stockrocketgif.gif"> Tecnologia Utilizada
 - [**DBeaver**](https://dbeaver.io/)    [(*Documentação*)](https://dbeaver.com/docs/wiki/)
