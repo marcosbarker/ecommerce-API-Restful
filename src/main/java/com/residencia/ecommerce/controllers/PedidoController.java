@@ -15,49 +15,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.residencia.ecommerce.entities.Categoria;
 import com.residencia.ecommerce.entities.Pedido;
 import com.residencia.ecommerce.services.PedidoService;
 
 @RestController
 @RequestMapping("/pedido")
 public class PedidoController {
-	
+
 	@Autowired
 	PedidoService pedidoService;
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Pedido> findById(@PathVariable Integer id) {
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(pedidoService.findById(id), headers, HttpStatus.OK);
 	}
-	
+
 	@GetMapping
 	public ResponseEntity<List<Pedido>> findAll() throws Exception {
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(pedidoService.findAll(), headers, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/count")
 	public Long count() {
 		return pedidoService.count();
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Pedido> save(@RequestBody Pedido pedido){
-		
+	public ResponseEntity<Pedido> save(@RequestBody Pedido pedido) {
+
 		HttpHeaders headers = new HttpHeaders();
-		
-		Categoria novoPedido = pedidoService.save(pedido);
-		
-		if(null != novoPedido)
+
+		Pedido novoPedido = pedidoService.save(pedido);
+
+		if (null != novoPedido)
 			return new ResponseEntity<>(novoPedido, headers, HttpStatus.OK);
 		else
 			return new ResponseEntity<>(novoPedido, headers, HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@PutMapping("/{id}")
-	public Categoria update(@RequestBody Pedido pedido, Integer id) {
+	public Pedido update(@RequestBody Pedido pedido, Integer id) {
 		return pedidoService.update(pedido, id);
 	}
 

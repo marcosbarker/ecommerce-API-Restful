@@ -2,7 +2,6 @@ package com.residencia.ecommerce.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.residencia.ecommerce.entities.Categoria;
 import com.residencia.ecommerce.entities.Pedido;
 import com.residencia.ecommerce.repositories.PedidoRepository;
 
@@ -23,12 +22,12 @@ public class PedidoService {
 		return pedidorepository.count();
 	}
 
-	public Categoria save(Pedido pedido) {
+	public Pedido save(Pedido pedido) {
 		Object novoPedido = pedidorepository.save(pedido);
-		return (Categoria) novoPedido;
+		return (Pedido) novoPedido;
 	}
 
-	public Categoria update(Pedido pedido, Integer id) {
+	public Pedido update(Pedido pedido, Integer id) {
 		pedido.setPedidoId(id);
 		return this.save(pedido);
 	}
@@ -38,4 +37,3 @@ public class PedidoService {
 	}
 
 }
-	
