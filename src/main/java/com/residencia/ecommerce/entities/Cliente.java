@@ -1,6 +1,7 @@
 package com.residencia.ecommerce.entities;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,42 +10,46 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "client")
+@Table(name = "client")
 public class Cliente {
-		
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "clientid ")
 	private Integer clientId;
-	
-	@Column (name = "email")
+
+	@Column(name = "email")
 	private String email;
-	
-	@Column (name = "username", unique = true)
+
+	@Column(name = "username", unique = true)
 	private String username;
-	
-	@Column (name = "senha")
+
+	@Column(name = "senha")
 	private String senha;
-	
-	@Column (name = "nome")
+
+	@Column(name = "nome")
 	private String nome;
-	
-	@Column (name = "cpf", unique = true)
+
+	@Column(name = "cpf", unique = true)
 	private Integer cpf;
-	
-	@Column (name = "telefone")
+
+	@Column(name = "telefone")
 	private String telefone;
-	
-	@Column (name = "datadenascimento")
+
+	@Column(name = "datadenascimento")
 	private Calendar dataDeNascimento;
-	
-	//RELACIOMENTO COM ENDERECO
+
+	// RELACIOMENTO COM ENDERECO
 	@ManyToOne
-	@JoinColumn (name = "enderecoid", referencedColumnName = "enderecoid")
+	@JoinColumn(name = "enderecoid", referencedColumnName = "enderecoid")
 	private Endereco endereco;
+
+	@OneToMany(mappedBy = "pedido")
+	private List<Pedido> listPedido;
 
 	public Integer getClientId() {
 		return clientId;
@@ -117,9 +122,5 @@ public class Cliente {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
-	
-	
-	
-	
+
 }
