@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.residencia.ecommerce.entities.Endereco;
-import com.residencia.ecommerce.entities.Pedido;
 
 public class ClienteVO {
 	
@@ -18,7 +17,10 @@ public class ClienteVO {
 	private String telefone;
 	private Calendar dataDeNascimento;
 	private Endereco endereco;
-	private List<Pedido> listPedido;
+	private List<PedidoVO> listPedidoVO;
+	
+	private String cep;
+	private Integer numeroCasa;
 	
 	public Integer getClientId() {
 		return clientId;
@@ -74,14 +76,29 @@ public class ClienteVO {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	public List<Pedido> getListPedido() {
-		return listPedido;
+	public void setListPedidoVO(List<PedidoVO> listPedidoVO) {
+		this.listPedidoVO = listPedidoVO;
 	}
-	public void setListPedido(List<Pedido> listPedido) {
-		this.listPedido = listPedido;
+	public List<PedidoVO> getListPedidoVO() {
+		return listPedidoVO;
 	}
 	
 	
 	
+	
+	
+	
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+	public Integer getNumeroCasa() {
+		return numeroCasa;
+	}
+	public void setNumeroCasa(Integer numeroCasa) {
+		this.numeroCasa = numeroCasa;
+	}
 	
 }

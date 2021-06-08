@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.residencia.ecommerce.entities.Categoria;
 import com.residencia.ecommerce.entities.Cliente;
 import com.residencia.ecommerce.entities.Pedido;
 import com.residencia.ecommerce.repositories.ClienteRepository;
+import com.residencia.ecommerce.vo.CategoriaVO;
 import com.residencia.ecommerce.vo.ClienteVO;
 import com.residencia.ecommerce.vo.PedidoVO;
 
@@ -25,38 +28,35 @@ public class ClienteService {
 		return clienteVO;
 	}
 
-	public List<ClienteVO> findAll() {
-		List<Cliente> listCliente = clienteRepository.findAll();
-		List<ClienteVO> listClienteVO = new ArrayList<>();
-
-		for (Cliente cliente : listCliente) {
-			ClienteVO clienteVO = converteEntidadeParaVO(cliente);
-
-			listClienteVO.add(clienteVO);
-		}
-
-		return listClienteVO;
-	}
-
-	public List<Cliente> findAll(Integer pagina, Integer qtdRegistros) throws Exception {
-		PageRequest page = null;
+	public List<ClienteVO> findAllVO(Integer pagina, Integer qtdRegistros) throws Exception {
+		Pageable page = null;
 		List<Cliente> listCliente = null;
 		List<Cliente> listClienteComPaginacao = null;
+		List<ClienteVO> listClienteVO = new ArrayList<>();
 
 		try {
 			if (null != pagina && null != qtdRegistros) {
+
 				page = PageRequest.of(pagina, qtdRegistros);
 				listClienteComPaginacao = clienteRepository.findAll(page).getContent();
 
-				return listClienteComPaginacao;
+				for (Cliente lCliente : listClienteComPaginacao) {
+					listClienteVO.add(converteEntidadeParaVO(lCliente));
+				}
+
 			} else {
 				listCliente = clienteRepository.findAll();
 
-				return listCliente;
+				for (Cliente lCliente : listCliente) {
+					listClienteVO.add(converteEntidadeParaVO(lCliente));
+				}
+
 			}
 		} catch (Exception e) {
-			throw new Exception("Não foi possível recuperar a lista de emprestimos ::" + e.getMessage());
+			throw new Exception("Não foi possível recuperar a lista de pedidos ::" + e.getMessage());
 		}
+
+		return listClienteVO;
 	}
 	
 	public ClienteVO save(ClienteVO clienteVO) {
@@ -130,7 +130,7 @@ public class ClienteService {
 		cliente.setDataDeNascimento(clienteVO.getDataDeNascimento());
 		cliente.setEndereco(clienteVO.getEndereco());
 		
-		for (Pedido lPedidoVO : clienteVO.getListPedido()) {
+		for (PedidoVO lPedidoVO : clienteVO.getListPedidoVO()) {
 			
 			// PASSANDO PEDIDO VO PARA ENTIDADE
 			
