@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.residencia.ecommerce.services.ClienteService;
@@ -33,12 +34,15 @@ public class ClienteController {
 				headers, HttpStatus.OK);
 	}
 	
-	@GetMapping
-	public ResponseEntity<List<ClienteVO>> findAll() 
+	@GetMapping("/listar-todos")
+	public ResponseEntity<List<ClienteVO>> findAllVO(
+			@RequestParam(required = false) Integer pagina,
+			@RequestParam(required = false) Integer qtdRegistros) 
 					throws Exception {
+		
 		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<>(clienteService.findAll(), 
-				headers, HttpStatus.OK);
+		return new ResponseEntity<>(clienteService.findAllVO(pagina, 
+				qtdRegistros), headers, HttpStatus.OK);
 	}
 	
 	@GetMapping("/count")
