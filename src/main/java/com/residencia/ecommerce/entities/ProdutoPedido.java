@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -31,15 +31,15 @@ public class ProdutoPedido {
 	private Integer preco;
 
 	// relacionamento com produto
-	@ManyToMany
-	@JoinColumn(name = "produtoid", referencedColumnName = "produtoid")
+	@OneToOne
+	@JoinColumn(name = "produto")
 	private Produto produto;
-
+	
 	// relacionamento com pedido
-	@ManyToMany
-	@JoinColumn(name = "pedidoid", referencedColumnName = "pedidoid")
+	@OneToOne
+	@JoinColumn(name = "pedido")
 	private Pedido pedido;
-
+	
 	public Integer getProdutoPedidoId() {
 		return produtoPedidoId;
 	}

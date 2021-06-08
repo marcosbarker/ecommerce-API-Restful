@@ -1,15 +1,14 @@
 package com.residencia.ecommerce.entities;
 
 import java.util.Calendar;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -39,17 +38,13 @@ public class Produto {
 	@Column(name = "imagem")
 	private String imagem; // ver conversao de imagem em base64
 
-	@Column(name = "categoriaId")
-	private Integer categoriaId;
-
 	// relacionamento com categoria
 	@ManyToOne
-	@JoinColumn(name = "categoriaid", referencedColumnName = "categoriaid")
+	@JoinColumn(name = "categoria", referencedColumnName = "categoria")
 	private Categoria categoria;
 
 	// relacionamento com produtoPedido
-	@ManyToMany
-	@JoinColumn(name = "produtoPedidoid", referencedColumnName = "produtoPedidoid")
+	@OneToOne(mappedBy = "produtoPedido")
 	private ProdutoPedido produtoPedido;
 
 	public Integer getProdutoId() {
@@ -108,20 +103,20 @@ public class Produto {
 		this.imagem = imagem;
 	}
 
-	public Integer getCategoriaId() {
-		return categoriaId;
-	}
-
-	public void setCategoriaId(Integer categoriaId) {
-		this.categoriaId = categoriaId;
-	}
-
 	public Categoria getCategoria() {
 		return categoria;
 	}
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public ProdutoPedido getProdutoPedido() {
+		return produtoPedido;
+	}
+
+	public void setProdutoPedido(ProdutoPedido produtoPedido) {
+		this.produtoPedido = produtoPedido;
 	}
 
 }
