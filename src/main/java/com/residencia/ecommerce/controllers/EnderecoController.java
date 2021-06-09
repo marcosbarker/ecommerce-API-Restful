@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.residencia.ecommerce.entities.Endereco;
 import com.residencia.ecommerce.services.EnderecoService;
+import com.residencia.ecommerce.vo.CategoriaVO;
+import com.residencia.ecommerce.vo.EnderecoVO;
 
 @RestController
 @RequestMapping("/endereco")
@@ -26,15 +29,26 @@ public class EnderecoController {
 	public EnderecoService enderecoService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Endereco> findById(@PathVariable Integer id) {
+	public ResponseEntity<EnderecoVO> findById(@PathVariable Integer id) {
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(enderecoService.findById(id), headers, HttpStatus.OK);
 	}
 
 	@GetMapping("/list")
-	public ResponseEntity<List<Endereco>> findAll() throws Exception {
+	public ResponseEntity<List<EnderecoVO>> findAll(
+			@RequestParam(required = false) Integer pagina,
+			@RequestParam(required = false) Integer qtdRegistros) 
+					throws Exception {
+		
 		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<>(enderecoService.findAll(), headers, HttpStatus.OK);
+		return new ResponseEntity<>(enderecoService.findAll(pagina, 
+				qtdRegistros), headers, HttpStatus.OK);
+	}
+	
+	@GetMapping("/count")
+	public Long count() {
+		return enderecoService.count();
+
 	}
 
 	@PostMapping
