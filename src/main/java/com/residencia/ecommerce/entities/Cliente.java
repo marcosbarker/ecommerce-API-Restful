@@ -47,7 +47,7 @@ public class Cliente {
 	@JoinColumn(name = "enderecoid", referencedColumnName = "enderecoid")
 	private Endereco endereco;
 
-	@OneToMany(mappedBy = "pedido")
+	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> listPedido;
 
 	public Integer getClientId() {

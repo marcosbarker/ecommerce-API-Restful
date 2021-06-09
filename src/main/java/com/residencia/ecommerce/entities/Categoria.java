@@ -26,7 +26,7 @@ public class Categoria {
 	private String descricao;
 
 	//relacionamento com produto
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "categoria")
     private List<Produto> listProduto;
 
 	public Integer getCategoriaId() {
@@ -54,7 +54,7 @@ public class Categoria {
 	}
 
 	public List<Produto> getListProduto() {
-		return listProduto;
+	return listProduto;
 	}
 
 	public void setListProduto(List<Produto> listProduto) {
