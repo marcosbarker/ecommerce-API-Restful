@@ -18,12 +18,6 @@ public class ProdutoPedido {
 	@Column(name = "produtoPedidoid")
 	private Integer produtoPedidoId;
 
-	@Column(name = "produtoid")
-	private Integer produtoId;
-
-	@Column(name = "pedidosId")
-	private Integer pedidosId;
-
 	@Column(name = "quantidade")
 	private Integer quantidade;
 
@@ -32,12 +26,12 @@ public class ProdutoPedido {
 
 	// relacionamento com produto
 	@OneToOne
-	@JoinColumn(name = "produto")
+	@JoinColumn(name = "produtoid", referencedColumnName = "produtoid")
 	private Produto produto;
 	
 	// relacionamento com pedido
 	@OneToOne
-	@JoinColumn(name = "pedido")
+	@JoinColumn(name = "pedidoid", referencedColumnName = "pedidoid")
 	private Pedido pedido;
 	
 	public Integer getProdutoPedidoId() {
@@ -46,22 +40,6 @@ public class ProdutoPedido {
 
 	public void setProdutoPedidoId(Integer produtoPedidoId) {
 		this.produtoPedidoId = produtoPedidoId;
-	}
-
-	public Integer getProdutoId() {
-		return produtoId;
-	}
-
-	public void setProdutoId(Integer produtoId) {
-		this.produtoId = produtoId;
-	}
-
-	public Integer getPedidosId() {
-		return pedidosId;
-	}
-
-	public void setPedidosId(Integer pedidosId) {
-		this.pedidosId = pedidosId;
 	}
 
 	public Integer getQuantidade() {

@@ -40,11 +40,10 @@ public class Pedido {
 	//relacionamento com cliente
 	@ManyToOne
 	@JoinColumn(name = "clientid", referencedColumnName = "clientid")
-	private Cliente clienteid;
+	private Cliente cliente;
 	
 	//relacionameno com produtoPedido
-	@OneToOne
-	@JoinColumn(name = "produtoPedido")
+	@OneToOne(mappedBy = "pedido")
 	private ProdutoPedido produtoPedido;
 
 	public Integer getPedidoId() {
@@ -95,12 +94,12 @@ public class Pedido {
 		this.status = status;
 	}
 
-	public Cliente getClienteid() {
-		return clienteid;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setClienteid(Cliente clienteid) {
-		this.clienteid = clienteid;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public ProdutoPedido getProduto() {

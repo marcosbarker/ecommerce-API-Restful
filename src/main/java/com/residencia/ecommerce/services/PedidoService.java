@@ -1,10 +1,12 @@
 package com.residencia.ecommerce.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.residencia.ecommerce.entities.Pedido;
 import com.residencia.ecommerce.repositories.PedidoRepository;
 
+@Service
 public class PedidoService {
 	
 	@Autowired

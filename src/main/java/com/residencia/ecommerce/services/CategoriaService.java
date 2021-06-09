@@ -86,9 +86,9 @@ public class CategoriaService {
 		categoriaVO.setDescricao(categoria.getDescricao());
 		
 		// CONVERTE PRODUTO ENTIDADE PARA PRODUTO VO
-		for (Produto lProduto : categoria.getListProduto()) {
+		//for (Produto lProduto : categoria.getListProduto()) {
 			// AGUARDAR A IMPLEMENTACAO DO CONVERTE DE PRODUTO NO SERVICE
-		}
+		//}
 		
 		return categoriaVO;
 		

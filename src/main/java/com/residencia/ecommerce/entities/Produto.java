@@ -40,11 +40,11 @@ public class Produto {
 
 	// relacionamento com categoria
 	@ManyToOne
-	@JoinColumn(name = "categoria", referencedColumnName = "categoria")
+	@JoinColumn(name = "categoriaid", referencedColumnName = "categoriaid")
 	private Categoria categoria;
 
 	// relacionamento com produtoPedido
-	@OneToOne(mappedBy = "produtoPedido")
+	@OneToOne(mappedBy = "produto")
 	private ProdutoPedido produtoPedido;
 
 	public Integer getProdutoId() {
