@@ -1,5 +1,9 @@
 package com.residencia.ecommerce.vo;
 
+import java.util.List;
+
+import com.residencia.ecommerce.entities.Cliente;
+
 public class EnderecoVO {
 
 	private Integer enderecoId;
@@ -9,7 +13,8 @@ public class EnderecoVO {
 	private String localidade; // CIDADE
 	private Integer numero;
 	private String complemento;
-	private String uf;  // ESTADO
+	private String uf; // ESTADO
+	private List<Cliente> listCliente;
 
 	public Integer getEnderecoId() {
 		return enderecoId;
@@ -27,7 +32,6 @@ public class EnderecoVO {
 		this.cep = cep;
 	}
 
-
 	public String getBairro() {
 		return bairro;
 	}
@@ -35,7 +39,6 @@ public class EnderecoVO {
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-
 
 	public Integer getNumero() {
 		return numero;
@@ -77,6 +80,12 @@ public class EnderecoVO {
 		this.uf = uf;
 	}
 
-	
+	public List<Cliente> getListCliente() {
+		return listCliente;
+	}
+
+	public void setListCliente(List<Cliente> listCliente) {
+		this.listCliente = listCliente;
+	}
 
 }
