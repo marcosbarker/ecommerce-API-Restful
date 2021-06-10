@@ -11,7 +11,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section --> 
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-***Para ser incluido em contribuidores de forma automática, mande um comentario com o comando em seu Pull Request.***
+***Para ser incluido em contribuidores de forma automática, mande em seu Pull Request um comentario com o comando:***
 ~~~html
 @all-contributors please add @<username> for <contributions>
 ~~~
