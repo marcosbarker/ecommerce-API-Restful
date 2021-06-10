@@ -59,18 +59,21 @@ public class EnderecoService {
 		}
 		return listEnderecoVO;
 	}
-
-	public Endereco save(Endereco endereco) {
-		return enderecoRepository.save(endereco);
-	}
-
+	
 	public Long count() {
 		return enderecoRepository.count();
 	}
 
-	public Endereco update(Endereco endereco, Integer id) {
-		endereco.setEnderecoId(id);
-		return enderecoRepository.save(endereco);
+	public Endereco save(EnderecoVO enderecoVO, ClienteVO clienteVO) {
+		Endereco novoEndereco = converteVOParaEntidade(enderecoVO, clienteVO);
+		enderecoRepository.save(novoEndereco);
+		return novoEndereco;
+	}
+
+	public EnderecoVO update(EnderecoVO enderecoVO, Integer id) {
+		Endereco endereco = converteVOParaEntidade1(enderecoVO, id);
+		enderecoRepository.save(endereco);
+		return converteEntidadeParaVO(endereco);
 	}
 	
 	public EnderecoVO converteEntidadeParaVO(Endereco endereco) {
@@ -119,6 +122,30 @@ public class EnderecoService {
 		for (ClienteVO lClienteVO : enderecoVO.getListClienteVO()) {
 			
 		}
+		}
+		
+		return endereco;
+	}
+	
+	public Endereco converteVOParaEntidade1(EnderecoVO enderecoVO, Integer id) {
+		Endereco endereco = new Endereco();
+		
+		
+		endereco.setEnderecoId(enderecoVO.getEnderecoId());
+		endereco.setRua(enderecoVO.getLogradouro());
+		endereco.setNumero(enderecoVO.getNumero());		
+		endereco.setComplemento(enderecoVO.getComplemento());
+		endereco.setBairro(enderecoVO.getBairro());
+		endereco.setCidade(enderecoVO.getLocalidade());
+		endereco.setEstado(enderecoVO.getUf());
+		endereco.setCep(enderecoVO.getCep());
+		
+		if (enderecoVO.getListClienteVO() != null) {
+			List<Cliente> listCliente = new ArrayList<>();
+			
+		for (ClienteVO lClienteVO : enderecoVO.getListClienteVO()) {
+			
+			}
 		}
 		
 		return endereco;

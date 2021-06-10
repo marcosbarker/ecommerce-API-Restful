@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.residencia.ecommerce.entities.Endereco;
 import com.residencia.ecommerce.services.EnderecoService;
-import com.residencia.ecommerce.vo.CategoriaVO;
+import com.residencia.ecommerce.vo.ClienteVO;
 import com.residencia.ecommerce.vo.EnderecoVO;
 
 @RestController
@@ -52,9 +52,10 @@ public class EnderecoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Endereco> save(@RequestBody Endereco endereco) {
+	public ResponseEntity<Endereco> save(@RequestBody EnderecoVO enderecoVO, ClienteVO clienteVO) {
 		HttpHeaders headers = new HttpHeaders();
-		Endereco novoEndereco = enderecoService.save(endereco);
+		
+		Endereco novoEndereco = enderecoService.save(enderecoVO, clienteVO);
 
 		if (null != novoEndereco)
 			return new ResponseEntity<>(novoEndereco, headers, HttpStatus.OK);
@@ -63,7 +64,7 @@ public class EnderecoController {
 	}
 
 	@PutMapping
-	public Endereco update(Endereco endereco, Integer id) {
+	public EnderecoVO update(EnderecoVO endereco, Integer id) {
 		return enderecoService.update(endereco, id);
 	}
 
