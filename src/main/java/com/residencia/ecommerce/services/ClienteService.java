@@ -12,6 +12,7 @@ import com.residencia.ecommerce.entities.Categoria;
 import com.residencia.ecommerce.entities.Cliente;
 import com.residencia.ecommerce.entities.Pedido;
 import com.residencia.ecommerce.repositories.ClienteRepository;
+import com.residencia.ecommerce.repositories.EnderecoRepository;
 import com.residencia.ecommerce.vo.CategoriaVO;
 import com.residencia.ecommerce.vo.ClienteVO;
 import com.residencia.ecommerce.vo.PedidoVO;
@@ -21,6 +22,9 @@ public class ClienteService {
 	
 	@Autowired 
 	ClienteRepository clienteRepository;
+	
+	@Autowired
+	EnderecoService enderecoService;
 	
 	public ClienteVO findById(Integer id) {
 		Cliente cliente = clienteRepository.findById(id).get();
@@ -75,9 +79,9 @@ public class ClienteService {
 		return clienteRepository.count();
 	}
 
-	private ClienteVO converteEntidadeParaVO(Cliente cliente) {
+	public ClienteVO converteEntidadeParaVO(Cliente cliente) {
 		ClienteVO clienteVO = new ClienteVO();
-		List<PedidoVO> listPedidoVO = new ArrayList<>();
+		
 
 		clienteVO.setClientId(cliente.getClientId());
 		clienteVO.setEmail(cliente.getEmail());
@@ -87,72 +91,83 @@ public class ClienteService {
 		clienteVO.setCpf(cliente.getCpf());
 		clienteVO.setTelefone(cliente.getTelefone());
 		clienteVO.setDataDeNascimento(cliente.getDataDeNascimento());
-		clienteVO.setEndereco(cliente.getEndereco());
+		clienteVO.setEnderecoVO(enderecoService.converteEntidadeParaVO(cliente.getEndereco()));
 		
-		for (Pedido lPedido : cliente.getListPedido()) {
+		
+		if (cliente.getListPedido() != null) {
+			List<PedidoVO> listPedidoVO = new ArrayList<>();
 			
-			// PASSANDO PEDIDO ENTIDADE PARA VO
-			
-			/*
-			PedidoVO pedidoVO = new PedidoVO();
-			 
-			pedidoVO.setCliente(lPedido.getCliente()); 
-			
-			pedidoVO.setDataDoPedido(lPedido.getDataDoPedido());
-			pedidoVO.setListaDeProdutosDoPedido(lPedido.getListaDeProdutosDoPedido()); //VERIFICAR
-			pedidoVO.setNumeroDoPedido(lPedido.getNumeroDoPedido());
-			pedidoVO.setPedidoId(lPedido.getPedidoId());
-			pedidoVO.setStatus(lPedido.getStatus());
-			pedidoVO.setValorTotalDoPedido(lPedido.getValorTotalDoPedido());
-			 
-			listPedidoVO.add(pedidoVO);
-		 	
-			 */ 
-			
-		}
+			for (Pedido lPedido : cliente.getListPedido()) {
+				
+				// PASSANDO PEDIDO ENTIDADE PARA VO
+				
+				/*
+				PedidoVO pedidoVO = new PedidoVO();
+				 
+				pedidoVO.setCliente(lPedido.getCliente()); 
+				
+				pedidoVO.setDataDoPedido(lPedido.getDataDoPedido());
+				pedidoVO.setListaDeProdutosDoPedido(lPedido.getListaDeProdutosDoPedido()); //VERIFICAR
+				pedidoVO.setNumeroDoPedido(lPedido.getNumeroDoPedido());
+				pedidoVO.setPedidoId(lPedido.getPedidoId());
+				pedidoVO.setStatus(lPedido.getStatus());
+				pedidoVO.setValorTotalDoPedido(lPedido.getValorTotalDoPedido());
+				 
+				listPedidoVO.add(pedidoVO);
+			 	
+				 */ 
+				
+			}
 
+		}
 
 		return clienteVO;
 		
 	}
 
-	private Cliente converteVOParaEntidade(ClienteVO clienteVO, Integer id) {
+	public Cliente converteVOParaEntidade(ClienteVO clienteVO, Integer id) {
 		Cliente cliente = new Cliente();
-		List<Pedido> listPedido = new ArrayList<>();
+		
 
 		cliente.setClientId(clienteVO.getClientId());
 		cliente.setEmail(clienteVO.getEmail());
-		cliente.setUsername(cliente.getUsername());
+		cliente.setUsername(clienteVO.getUsername());
 		cliente.setSenha(clienteVO.getSenha());
 		cliente.setNome(clienteVO.getNome());
 		cliente.setCpf(clienteVO.getCpf());
 		cliente.setTelefone(clienteVO.getTelefone());
 		cliente.setDataDeNascimento(clienteVO.getDataDeNascimento());
-		cliente.setEndereco(clienteVO.getEndereco());
+		cliente.setEndereco(enderecoService.save(enderecoService.converteVOParaEntidade(enderecoService.consultarCep(clienteVO.getCep()), clienteVO)));
 		
-		for (PedidoVO lPedidoVO : clienteVO.getListPedidoVO()) {
-			
-			// PASSANDO PEDIDO VO PARA ENTIDADE
-			
-			/*
-			 
-			      // VERIFICAR
-			 
-			Pedido pedido = new Pedido();
-			 
-			pedidoVO.setCliente(lPedido.getCliente()); 
-			
-			pedido.setDataDoPedido(lPedido.getDataDoPedido());
-			pedido.setListaDeProdutosDoPedido(lPedido.getListaDeProdutosDoPedido()); //VERIFICAR
-			pedido.setNumeroDoPedido(lPedido.getNumeroDoPedido());
-			pedido.setPedidoId(lPedido.getPedidoId());
-			pedido.setStatus(lPedido.getStatus());
-			pedido.setValorTotalDoPedido(lPedido.getValorTotalDoPedido());
-			 
-			listPedido.add(pedido);
-		 	
-			 */ 
-			
+		
+		if (clienteVO.getListPedidoVO() != null) {
+			List<Pedido> listPedido = new ArrayList<>();
+		
+			for (PedidoVO lPedidoVO : clienteVO.getListPedidoVO()) {
+				
+				// PASSANDO PEDIDO VO PARA ENTIDADE
+				
+				/*
+				 
+				      // VERIFICAR
+				 
+				Pedido pedido = new Pedido();
+				 
+				pedidoVO.setCliente(lPedido.getCliente()); 
+				
+				pedido.setDataDoPedido(lPedido.getDataDoPedido());
+				pedido.setListaDeProdutosDoPedido(lPedido.getListaDeProdutosDoPedido()); //VERIFICAR
+				pedido.setNumeroDoPedido(lPedido.getNumeroDoPedido());
+				pedido.setPedidoId(lPedido.getPedidoId());
+				pedido.setStatus(lPedido.getStatus());
+				pedido.setValorTotalDoPedido(lPedido.getValorTotalDoPedido());
+				 
+				listPedido.add(pedido);
+			 	
+				 */ 
+				
+			}
+		
 		}
 
 		return cliente;
