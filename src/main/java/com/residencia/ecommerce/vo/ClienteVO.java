@@ -16,7 +16,7 @@ public class ClienteVO {
 	private Integer cpf;
 	private String telefone;
 	private Calendar dataDeNascimento;
-	private Endereco endereco;
+	private EnderecoVO enderecoVO;
 	private List<PedidoVO> listPedidoVO;
 	
 	private String cep;
@@ -70,11 +70,11 @@ public class ClienteVO {
 	public void setDataDeNascimento(Calendar dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
-	public Endereco getEndereco() {
-		return endereco;
+	public EnderecoVO getEnderecoVO() {
+		return enderecoVO;
 	}
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setEnderecoVO(EnderecoVO enderecoVO) {
+		this.enderecoVO = enderecoVO;
 	}
 	public void setListPedidoVO(List<PedidoVO> listPedidoVO) {
 		this.listPedidoVO = listPedidoVO;

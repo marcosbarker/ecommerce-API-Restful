@@ -7,14 +7,14 @@ import com.residencia.ecommerce.entities.Cliente;
 public class EnderecoVO {
 
 	private Integer enderecoId;
-	private Integer cep;
+	private String cep;
 	private String logradouro; // RUA
 	private String bairro;
 	private String localidade; // CIDADE
 	private Integer numero;
 	private String complemento;
 	private String uf; // ESTADO
-	private List<Cliente> listCliente;
+	private List<ClienteVO> listClienteVO;
 
 	public Integer getEnderecoId() {
 		return enderecoId;
@@ -24,11 +24,11 @@ public class EnderecoVO {
 		this.enderecoId = enderecoId;
 	}
 
-	public Integer getCep() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(Integer cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
 
@@ -80,12 +80,12 @@ public class EnderecoVO {
 		this.uf = uf;
 	}
 
-	public List<Cliente> getListCliente() {
-		return listCliente;
+	public List<ClienteVO> getListClienteVO() {
+		return listClienteVO;
 	}
 
-	public void setListCliente(List<Cliente> listCliente) {
-		this.listCliente = listCliente;
+	public void setListCliente(List<ClienteVO> listClienteVO) {
+		this.listClienteVO = listClienteVO;
 	}
 
 }

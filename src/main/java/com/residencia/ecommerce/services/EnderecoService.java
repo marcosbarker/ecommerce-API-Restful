@@ -1,13 +1,15 @@
 package com.residencia.ecommerce.services;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.residencia.ecommerce.entities.Cliente;
 import com.residencia.ecommerce.entities.Endereco;
@@ -20,6 +22,9 @@ public class EnderecoService {
 
 	@Autowired
 	public EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	public ClienteService clienteService;
 
 	public EnderecoVO findById(Integer id) {
 		Endereco endereco = enderecoRepository.findById(id).get();
@@ -68,7 +73,7 @@ public class EnderecoService {
 		return enderecoRepository.save(endereco);
 	}
 	
-	private EnderecoVO converteEntidadeParaVO(Endereco endereco) {
+	public EnderecoVO converteEntidadeParaVO(Endereco endereco) {
 		EnderecoVO enderecoVO = new EnderecoVO();
 		List<ClienteVO> listClienteVO = new ArrayList<>();
 		
@@ -81,11 +86,42 @@ public class EnderecoService {
 		enderecoVO.setUf(endereco.getEstado());
 		enderecoVO.setCep(endereco.getCep());
 		
+		if(endereco.getListCliente() != null) {
 		for (Cliente lCliente : endereco.getListCliente()) {
-			
+			listClienteVO.add(clienteService.converteEntidadeParaVO(lCliente));
+		}
+		}
+		return enderecoVO;
+	}
+	
+	public Endereco converteVOParaEntidade(EnderecoVO enderecoVO, ClienteVO clienteVO) {
+		Endereco endereco = new Endereco();
+		
+		
+		endereco.setEnderecoId(enderecoVO.getEnderecoId());
+		endereco.setRua(enderecoVO.getLogradouro());
+		
+		if(enderecoVO.getNumero() == null) {
+			endereco.setNumero(clienteVO.getNumeroCasa());
+		}else {
+		endereco.setNumero(enderecoVO.getNumero());
 		}
 		
-		return enderecoVO;
+		endereco.setComplemento(enderecoVO.getComplemento());
+		endereco.setBairro(enderecoVO.getBairro());
+		endereco.setCidade(enderecoVO.getLocalidade());
+		endereco.setEstado(enderecoVO.getUf());
+		endereco.setCep(enderecoVO.getCep());
+		
+		if (enderecoVO.getListClienteVO() != null) {
+			List<Cliente> listCliente = new ArrayList<>();
+			
+		for (ClienteVO lClienteVO : enderecoVO.getListClienteVO()) {
+			
+		}
+		}
+		
+		return endereco;
 	}
 	
 	//Fazer metodo de conversao de VO para Entidade -> falta entender o SAVE
@@ -93,5 +129,16 @@ public class EnderecoService {
 	public void delete(Integer id) {
 		enderecoRepository.deleteById(id);
 	}
+	
+	public EnderecoVO consultarCep(String cep) {
+		RestTemplate restTemplate = new RestTemplate();
+		String uri = "https://viacep.com.br/ws/{cep}/json/";	
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("cep", cep);
+			
+		EnderecoVO enderecoVO = restTemplate.getForObject(uri, EnderecoVO.class, params);
+			
+		return enderecoVO;
+	  }
 
 }
