@@ -137,7 +137,7 @@ public class ClienteService {
 		cliente.setCpf(clienteVO.getCpf());
 		cliente.setTelefone(clienteVO.getTelefone());
 		cliente.setDataDeNascimento(clienteVO.getDataDeNascimento());
-		cliente.setEndereco(enderecoService.save(enderecoService.converteVOParaEntidade(enderecoService.consultarCep(clienteVO.getCep()), clienteVO)));
+		cliente.setEndereco(enderecoService.save(enderecoService.consultarCep(clienteVO.getCep()), clienteVO));
 		
 		
 		if (clienteVO.getListPedidoVO() != null) {
