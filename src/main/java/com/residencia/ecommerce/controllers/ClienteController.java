@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.residencia.ecommerce.services.ClienteService;
 import com.residencia.ecommerce.vo.ClienteVO;
+import com.residencia.ecommerce.vo.Views.ClienteView;
 
 
 @RestController
@@ -28,20 +29,20 @@ public class ClienteController {
     private ClienteService clienteService;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ClienteVO> findById(@PathVariable Integer id) {
+	public ResponseEntity<ClienteView> findById(@PathVariable Integer id) {
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(clienteService.findById(id), 
 				headers, HttpStatus.OK);
 	}
 	
 	@GetMapping("/listar-todos")
-	public ResponseEntity<List<ClienteVO>> findAllVO(
+	public ResponseEntity<List<ClienteView>> findAllView(
 			@RequestParam(required = false) Integer pagina,
 			@RequestParam(required = false) Integer qtdRegistros) 
 					throws Exception {
 		
 		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<>(clienteService.findAllVO(pagina, 
+		return new ResponseEntity<>(clienteService.findAllView(pagina, 
 				qtdRegistros), headers, HttpStatus.OK);
 	}
 	

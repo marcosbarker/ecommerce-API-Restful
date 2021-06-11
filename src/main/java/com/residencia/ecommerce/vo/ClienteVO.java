@@ -3,7 +3,6 @@ package com.residencia.ecommerce.vo;
 import java.util.Calendar;
 import java.util.List;
 
-import com.residencia.ecommerce.entities.Endereco;
 
 public class ClienteVO {
 	
