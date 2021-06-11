@@ -8,14 +8,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.residencia.ecommerce.entities.Categoria;
 import com.residencia.ecommerce.entities.Cliente;
 import com.residencia.ecommerce.entities.Pedido;
 import com.residencia.ecommerce.repositories.ClienteRepository;
-import com.residencia.ecommerce.repositories.EnderecoRepository;
-import com.residencia.ecommerce.vo.CategoriaVO;
 import com.residencia.ecommerce.vo.ClienteVO;
 import com.residencia.ecommerce.vo.PedidoVO;
+import com.residencia.ecommerce.vo.Views.ClienteView;
+import com.residencia.ecommerce.vo.Views.PedidoClienteView;
 
 @Service
 public class ClienteService {
@@ -26,17 +25,20 @@ public class ClienteService {
 	@Autowired
 	EnderecoService enderecoService;
 	
-	public ClienteVO findById(Integer id) {
+	@Autowired
+	PedidoService pedidoService;
+	
+	public ClienteView findById(Integer id) {
 		Cliente cliente = clienteRepository.findById(id).get();
-		ClienteVO clienteVO = converteEntidadeParaVO(cliente);
-		return clienteVO;
+		ClienteView clienteView = converteEntidadeParaView(cliente);
+		return clienteView;
 	}
 
-	public List<ClienteVO> findAllVO(Integer pagina, Integer qtdRegistros) throws Exception {
+	public List<ClienteView> findAllView(Integer pagina, Integer qtdRegistros) throws Exception {
 		Pageable page = null;
 		List<Cliente> listCliente = null;
 		List<Cliente> listClienteComPaginacao = null;
-		List<ClienteVO> listClienteVO = new ArrayList<>();
+		List<ClienteView> listClienteView = new ArrayList<>();
 
 		try {
 			if (null != pagina && null != qtdRegistros) {
@@ -45,14 +47,14 @@ public class ClienteService {
 				listClienteComPaginacao = clienteRepository.findAll(page).getContent();
 
 				for (Cliente lCliente : listClienteComPaginacao) {
-					listClienteVO.add(converteEntidadeParaVO(lCliente));
+					listClienteView.add(converteEntidadeParaView(lCliente));
 				}
 
 			} else {
 				listCliente = clienteRepository.findAll();
 
 				for (Cliente lCliente : listCliente) {
-					listClienteVO.add(converteEntidadeParaVO(lCliente));
+					listClienteView.add(converteEntidadeParaView(lCliente));
 				}
 
 			}
@@ -60,7 +62,7 @@ public class ClienteService {
 			throw new Exception("Não foi possível recuperar a lista de pedidos ::" + e.getMessage());
 		}
 
-		return listClienteVO;
+		return listClienteView;
 	}
 	
 	public ClienteVO save(ClienteVO clienteVO) {
@@ -81,6 +83,7 @@ public class ClienteService {
 
 	public ClienteVO converteEntidadeParaVO(Cliente cliente) {
 		ClienteVO clienteVO = new ClienteVO();
+		List<PedidoVO>listPedidoVO = new ArrayList();
 		
 
 		clienteVO.setClientId(cliente.getClientId());
@@ -95,39 +98,19 @@ public class ClienteService {
 		
 		
 		if (cliente.getListPedido() != null) {
-			List<PedidoVO> listPedidoVO = new ArrayList<>();
-			
 			for (Pedido lPedido : cliente.getListPedido()) {
-				
-				// PASSANDO PEDIDO ENTIDADE PARA VO
-				
-				/*
-				PedidoVO pedidoVO = new PedidoVO();
-				 
-				pedidoVO.setCliente(lPedido.getCliente()); 
-				
-				pedidoVO.setDataDoPedido(lPedido.getDataDoPedido());
-				pedidoVO.setListaDeProdutosDoPedido(lPedido.getListaDeProdutosDoPedido()); //VERIFICAR
-				pedidoVO.setNumeroDoPedido(lPedido.getNumeroDoPedido());
-				pedidoVO.setPedidoId(lPedido.getPedidoId());
-				pedidoVO.setStatus(lPedido.getStatus());
-				pedidoVO.setValorTotalDoPedido(lPedido.getValorTotalDoPedido());
-				 
-				listPedidoVO.add(pedidoVO);
-			 	
-				 */ 
-				
+				listPedidoVO.add(pedidoService.converteEntidadeParaVO(lPedido));
 			}
-
+			clienteVO.setListPedidoVO(listPedidoVO);
 		}
 
 		return clienteVO;
 		
-	}
+		}
 
 	public Cliente converteVOParaEntidade(ClienteVO clienteVO, Integer id) {
 		Cliente cliente = new Cliente();
-		
+		List<Pedido> listPedido = new ArrayList<>();
 
 		cliente.setClientId(clienteVO.getClientId());
 		cliente.setEmail(clienteVO.getEmail());
@@ -141,33 +124,12 @@ public class ClienteService {
 		
 		
 		if (clienteVO.getListPedidoVO() != null) {
-			List<Pedido> listPedido = new ArrayList<>();
+			
 		
 			for (PedidoVO lPedidoVO : clienteVO.getListPedidoVO()) {
-				
-				// PASSANDO PEDIDO VO PARA ENTIDADE
-				
-				/*
-				 
-				      // VERIFICAR
-				 
-				Pedido pedido = new Pedido();
-				 
-				pedidoVO.setCliente(lPedido.getCliente()); 
-				
-				pedido.setDataDoPedido(lPedido.getDataDoPedido());
-				pedido.setListaDeProdutosDoPedido(lPedido.getListaDeProdutosDoPedido()); //VERIFICAR
-				pedido.setNumeroDoPedido(lPedido.getNumeroDoPedido());
-				pedido.setPedidoId(lPedido.getPedidoId());
-				pedido.setStatus(lPedido.getStatus());
-				pedido.setValorTotalDoPedido(lPedido.getValorTotalDoPedido());
-				 
-				listPedido.add(pedido);
-			 	
-				 */ 
-				
+				listPedido.add(pedidoService.converteVOParaEntidade(lPedidoVO));
 			}
-		
+			cliente.setListPedido(listPedido);
 		}
 
 		return cliente;
@@ -177,5 +139,20 @@ public class ClienteService {
 		clienteRepository.deleteById(id);
 	}
 	
+	public ClienteView converteEntidadeParaView(Cliente cliente) {
+		ClienteView clienteView = new ClienteView();
+		List<PedidoClienteView> listPedidoClienteView = new ArrayList();
+		
+		clienteView.setNome(cliente.getNome());
+		clienteView.setEmail(cliente.getEmail());
+		clienteView.setCpf(cliente.getCpf());
+		
+		for (Pedido lPedido : cliente.getListPedido()) {
+			listPedidoClienteView.add(pedidoService.converteEntidadeParaView(lPedido));
+		}
+			
+		clienteView.setListPedidoClienteView(listPedidoClienteView);
+		return clienteView;
+	}
 
 }

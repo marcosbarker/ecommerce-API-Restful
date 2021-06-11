@@ -102,11 +102,11 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public ProdutoPedido getProduto() {
+	public ProdutoPedido getProdutoPedido() {
 		return produtoPedido;
 	}
 
-	public void setProduto(ProdutoPedido produto) {
+	public void setProdutoPedido(ProdutoPedido produto) {
 		this.produtoPedido = produto;
 	}
 	

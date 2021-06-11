@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.residencia.ecommerce.entities.Pedido;
 import com.residencia.ecommerce.services.PedidoService;
+import com.residencia.ecommerce.vo.PedidoVO;
+import com.residencia.ecommerce.vo.Views.PedidoClienteView;
 
 @RestController
 @RequestMapping("/pedido")
@@ -26,15 +28,20 @@ public class PedidoController {
 	PedidoService pedidoService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Pedido> findById(@PathVariable Integer id) {
+	public ResponseEntity<PedidoClienteView> findById(@PathVariable Integer id) {
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(pedidoService.findById(id), headers, HttpStatus.OK);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<Pedido>> findAll() throws Exception {
+	@GetMapping("/listar-todos")
+	public ResponseEntity<List<PedidoClienteView>> findAllView(
+			@RequestParam(required = false) Integer pagina,
+			@RequestParam(required = false) Integer qtdRegistros) 
+					throws Exception {
+		
 		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<>(pedidoService.findAll(), headers, HttpStatus.OK);
+		return new ResponseEntity<>(pedidoService.findAllView(pagina, 
+				qtdRegistros), headers, HttpStatus.OK);
 	}
 
 	@GetMapping("/count")
@@ -43,21 +50,21 @@ public class PedidoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Pedido> save(@RequestBody Pedido pedido) {
+	public ResponseEntity<PedidoVO> save(@RequestBody PedidoVO pedidoVO) {
 
 		HttpHeaders headers = new HttpHeaders();
 
-		Pedido novoPedido = pedidoService.save(pedido);
+		PedidoVO novoPedidoVO = pedidoService.save(pedidoVO);
 
-		if (null != novoPedido)
-			return new ResponseEntity<>(novoPedido, headers, HttpStatus.OK);
+		if (null != novoPedidoVO)
+			return new ResponseEntity<>(novoPedidoVO, headers, HttpStatus.OK);
 		else
-			return new ResponseEntity<>(novoPedido, headers, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(novoPedidoVO, headers, HttpStatus.BAD_REQUEST);
 	}
 
 	@PutMapping("/{id}")
-	public Pedido update(@RequestBody Pedido pedido, Integer id) {
-		return pedidoService.update(pedido, id);
+	public PedidoVO update(@RequestBody PedidoVO pedidoVO, Integer id) {
+		return pedidoService.update(pedidoVO, id);
 	}
 
 	@DeleteMapping("/{id}")

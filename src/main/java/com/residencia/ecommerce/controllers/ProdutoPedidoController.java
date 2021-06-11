@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.residencia.ecommerce.entities.ProdutoPedido;
 import com.residencia.ecommerce.services.ProdutoPedidoService;
+import com.residencia.ecommerce.vo.ProdutoPedidoVO;
+import com.residencia.ecommerce.vo.Views.ProdutoPedidoView;
 
 @RestController
 @RequestMapping("/produtoPedido")
@@ -26,15 +28,20 @@ public class ProdutoPedidoController {
 	ProdutoPedidoService produtoPedidoService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ProdutoPedido> findById(@PathVariable Integer id) {
+	public ResponseEntity<ProdutoPedidoView> findById(@PathVariable Integer id) {
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(produtoPedidoService.findById(id), headers, HttpStatus.OK);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<ProdutoPedido>> findAll() throws Exception {
+	@GetMapping("/listar-todos")
+	public ResponseEntity<List<ProdutoPedidoView>> findAllView(
+			@RequestParam(required = false) Integer pagina,
+			@RequestParam(required = false) Integer qtdRegistros) 
+					throws Exception {
+		
 		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<>(produtoPedidoService.findAll(), headers, HttpStatus.OK);
+		return new ResponseEntity<>(produtoPedidoService.findAllView(pagina, 
+				qtdRegistros), headers, HttpStatus.OK);
 	}
 
 	@GetMapping("/count")
@@ -43,21 +50,21 @@ public class ProdutoPedidoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ProdutoPedido> save(@RequestBody ProdutoPedido produtoPedido) {
+	public ResponseEntity<ProdutoPedidoVO> save(@RequestBody ProdutoPedidoVO produtoPedidoVO) {
 
 		HttpHeaders headers = new HttpHeaders();
 
-		ProdutoPedido novoProdutoPedido = produtoPedidoService.save(produtoPedido);
+		ProdutoPedidoVO novoProdutoPedidoVO = produtoPedidoService.save(produtoPedidoVO);
 
-		if (null != novoProdutoPedido)
-			return new ResponseEntity<>(novoProdutoPedido, headers, HttpStatus.OK);
+		if (null != novoProdutoPedidoVO)
+			return new ResponseEntity<>(novoProdutoPedidoVO, headers, HttpStatus.OK);
 		else
-			return new ResponseEntity<>(novoProdutoPedido, headers, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(novoProdutoPedidoVO, headers, HttpStatus.BAD_REQUEST);
 	}
 
 	@PutMapping("/{id}")
-	public ProdutoPedido update(@RequestBody ProdutoPedido produtoPedido, Integer id) {
-		return produtoPedidoService.update(produtoPedido, id);
+	public ProdutoPedidoVO update(@RequestBody ProdutoPedidoVO produtoPedidoVO, Integer id) {
+		return produtoPedidoService.update(produtoPedidoVO, id);
 	}
 
 	@DeleteMapping("/{id}")

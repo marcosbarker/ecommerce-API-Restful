@@ -22,6 +22,9 @@ public class CategoriaService {
 	@Autowired 
 	CategoriaRepository categoriaRepository;
 	
+	@Autowired 
+	ProdutoService produtoService;
+	
 	public CategoriaVO findById(Integer id) {
 		Categoria categoria = categoriaRepository.findById(id).get();
 		CategoriaVO categoriaVO = converteEntidadeParaVO(categoria);
@@ -60,13 +63,13 @@ public class CategoriaService {
 	}
 	
 	public CategoriaVO save(CategoriaVO categoriaVO) {
-		Categoria novaCategoria = converteVOParaEntidade(categoriaVO, null);
+		Categoria novaCategoria = converteVOParaEntidade(categoriaVO);
 		categoriaRepository.save(novaCategoria);
 		return converteEntidadeParaVO(novaCategoria);
 	}
 
 	public CategoriaVO update(CategoriaVO categoriaVO, Integer id) {
-		Categoria categoria = converteVOParaEntidade(categoriaVO, id);
+		Categoria categoria = converteVOParaEntidade(categoriaVO);
 		Categoria novaCategoria = categoriaRepository.save(categoria);
 		return converteEntidadeParaVO(novaCategoria);
 	}
@@ -75,26 +78,24 @@ public class CategoriaService {
 		return categoriaRepository.count();
 	}
 
-	private CategoriaVO converteEntidadeParaVO(Categoria categoria) {
+	public CategoriaVO converteEntidadeParaVO(Categoria categoria) {
 		CategoriaVO categoriaVO = new CategoriaVO();
 		List<ProdutoVO> listProdutoVO = new ArrayList<>();
-		
-		
 		
 		categoriaVO.setCategoriaId(categoria.getCategoriaId());
 		categoriaVO.setNome(categoria.getNome());
 		categoriaVO.setDescricao(categoria.getDescricao());
 		
-		// CONVERTE PRODUTO ENTIDADE PARA PRODUTO VO
-		//for (Produto lProduto : categoria.getListProduto()) {
-			// AGUARDAR A IMPLEMENTACAO DO CONVERTE DE PRODUTO NO SERVICE
-		//}
 		
+		for (Produto lProduto : categoria.getListProduto()) {
+			listProdutoVO.add(produtoService.converteEntidadeParaVO(lProduto));
+		}
+		categoriaVO.setListProdutoVO(listProdutoVO);
 		return categoriaVO;
 		
 	}
 
-	private Categoria converteVOParaEntidade(CategoriaVO categoriaVO, Integer id) {
+	public Categoria converteVOParaEntidade(CategoriaVO categoriaVO) {
 		Categoria categoria = new Categoria();
 		List<Produto> listProduto = new ArrayList<>();
 		
@@ -102,9 +103,9 @@ public class CategoriaService {
 		categoria.setNome(categoriaVO.getNome());
 		categoria.setDescricao(categoriaVO.getDescricao());
 		
-		// CONVERTE PRODUTO VO PARA PRODUTO ENTIDADE
+		
 		for (ProdutoVO lProdutoVO : categoriaVO.getListProdutoVO()) {
-			// AGUARDAR A IMPLEMENTACAO DO CONVERTE DE PRODUTO NO SERVICE
+			listProduto.add(produtoService.converteVOParaEntidade(lProdutoVO));
 		}
 		
 		return categoria;

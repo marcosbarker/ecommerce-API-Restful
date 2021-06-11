@@ -2,6 +2,7 @@ package com.residencia.ecommerce.vo;
 
 import java.util.Calendar;
 
+
 public class ProdutoVO {
 
 	private Integer produtoId;
@@ -11,6 +12,8 @@ public class ProdutoVO {
 	private String quantidadeEmEstoque;
 	private Calendar dataDeCadastroDoProduto;
 	private String imagem;
+	private CategoriaVO categoriaVO;
+	private ProdutoPedidoVO produtoPedidoVO;
 
 	public Integer getProdutoId() {
 		return produtoId;
@@ -67,5 +70,23 @@ public class ProdutoVO {
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
+
+	public CategoriaVO getCategoriaVO() {
+		return categoriaVO;
+	}
+
+	public void setCategoriaVO(CategoriaVO categoriaVO) {
+		this.categoriaVO = categoriaVO;
+	}
+
+	public ProdutoPedidoVO getProdutoPedidoVO() {
+		return produtoPedidoVO;
+	}
+
+	public void setProdutoPedidoVO(ProdutoPedidoVO produtoPedidoVO) {
+		this.produtoPedidoVO = produtoPedidoVO;
+	}
+	
+	
 
 }

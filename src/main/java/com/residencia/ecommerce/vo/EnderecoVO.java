@@ -2,7 +2,6 @@ package com.residencia.ecommerce.vo;
 
 import java.util.List;
 
-import com.residencia.ecommerce.entities.Cliente;
 
 public class EnderecoVO {
 
