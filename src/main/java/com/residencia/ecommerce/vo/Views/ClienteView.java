@@ -6,7 +6,7 @@ public class ClienteView {
 	
 	private String nome;
 	private String email;
-	private Integer cpf;
+	private String cpf;
 	private List<PedidoClienteView> listPedidoClienteView;
 	
 	
@@ -22,11 +22,11 @@ public class ClienteView {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Integer getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
-	public void setCpf(Integer cpf) {
-		this.cpf = cpf;
+	public void setCpf(String string) {
+		this.cpf = string;
 	}
 	public List<PedidoClienteView> getListPedidoClienteView() {
 		return listPedidoClienteView;
