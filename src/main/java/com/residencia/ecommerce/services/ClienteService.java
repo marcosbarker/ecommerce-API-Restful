@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.residencia.ecommerce.entities.Cliente;
@@ -120,7 +121,7 @@ public class ClienteService {
 		cliente.setClientId(clienteVO.getClientId());
 		cliente.setEmail(clienteVO.getEmail());
 		cliente.setUsername(clienteVO.getUsername());
-		cliente.setSenha(clienteVO.getSenha());
+		cliente.setSenha(new BCryptPasswordEncoder().encode(clienteVO.getSenha()));
 		cliente.setNome(clienteVO.getNome());
 		cliente.setCpf(clienteVO.getCpf());
 		cliente.setTelefone(clienteVO.getTelefone());

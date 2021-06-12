@@ -21,8 +21,8 @@ public class LoginService {
 		
 		if(clienteRepository.findByUsername(loginVO.getUsername()) != null) {
 			Cliente cliente = clienteRepository.findByUsername(loginVO.getUsername());
-			if(cliente.getSenha() == loginVO.getSenha()) {
-				applicationSecurityConfig.configure(null, cliente);
+			if(cliente.getSenha().equals(loginVO.getSenha())) {
+				
 				return cliente;
 			}
 			return null;
