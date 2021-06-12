@@ -1,20 +1,23 @@
 package com.residencia.ecommerce.config;
 
-import org.springframework.context.annotation.Bean;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.residencia.ecommerce.entities.Cliente;
 
 @Configuration
 @EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
-//	@Override
+
+	//	@Override
  //   protected void configure(HttpSecurity httpSecurity) throws Exception {
  //       httpSecurity.csrf().disable()
 //                .authorizeRequests().anyRequest().authenticated()
@@ -22,22 +25,38 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 	
 	
-	public void configure(AuthenticationManagerBuilder auth, Cliente cliente)throws Exception {
-		auth.inMemoryAuthentication().withUser(cliente.getUsername()).password(cliente.getSenha()).roles("Admin").and().withUser("maria").password("{noop}123456").roles("User");
-		
-	}
+
+	
+	  private static final String USUARIO_POR_LOGIN = "SELECT username, senha , 'true' as enable FROM client WHERE username=?";
+	  
+	  private static final String USUARIO_AUTHORITY = "SELECT username,authority FROM client WHERE username = ?";
+	     
+	  @Autowired
+	  private DataSource dataSource;
+	 
+	  @Override
+	  protected void configure(AuthenticationManagerBuilder builder) throws Exception {
+	    builder
+	        .jdbcAuthentication()
+	        .dataSource(dataSource)
+	        .passwordEncoder(new BCryptPasswordEncoder())
+	        .usersByUsernameQuery(USUARIO_POR_LOGIN)
+	        .authoritiesByUsernameQuery(USUARIO_AUTHORITY)
+	        .rolePrefix("ROLE_USER");
+	  }
 	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		
-		http.authorizeRequests()
-		.antMatchers(HttpMethod.GET, "/pedido").access("HasAuthority('Admin')")
-		.anyRequest().authenticated()
-		.and()
-		.httpBasic()
-		.and()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-	}
+	 protected void configure(HttpSecurity http) throws Exception {
+		    http
+		    
+		    .authorizeRequests()
+			.antMatchers(HttpMethod.POST, "/cliente").permitAll()
+	        .anyRequest().authenticated()
+	        .and()
+	        .httpBasic();
+		  }
+}
+
 // GALERA, TAVA TESTANDO E POR ISSO CRIEI ESSES MÉTODOS AQUI
 // TALVEZ DÊ PARA FAZER O LOGIN A PARTIR DISSO AQUI
 // DEIXEI COMENTADO PORQUE NÃO PROSSEGUI COM MEDO DE FAZER BESTEIRA 
@@ -57,4 +76,3 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 //		auth.inMemoryAuthentication().withUser(username "user")
 //		.password(passwordEncoder().encode(newpassword "password")).authorities("USER");
 //	}
-}
