@@ -1,6 +1,6 @@
 [🚧**issues**](https://github.com/marcosbarker/ecommerce-API-Restful/issues/1) <a name="back-to-top">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <p align="center">
   <img height="400px" src="https://freevector-images.s3.amazonaws.com/uploads/vector/preview/36682/36682.png" alt="logo ecommerce"/>
@@ -82,6 +82,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/IgorStumpf"><img src="https://avatars.githubusercontent.com/u/82158859?v=4?s=100" width="100px;" alt=""/><br /><sub><b>IgorStumpf</b></sub></a><br /><a href="https://github.com/marcosbarker/ecommerce-API-Restful/commits?author=IgorStumpf" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/JpBade"><img src="https://avatars.githubusercontent.com/u/82114843?v=4?s=100" width="100px;" alt=""/><br /><sub><b>João Paulo Bade</b></sub></a><br /><a href="https://github.com/marcosbarker/ecommerce-API-Restful/commits?author=JpBade" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/mpj144"><img src="https://avatars.githubusercontent.com/u/82114419?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcelo Pires</b></sub></a><br /><a href="https://github.com/marcosbarker/ecommerce-API-Restful/commits?author=mpj144" title="Code">💻</a></td>
+    <td align="center"><a href="http://linktr.ee/marcos_barker"><img src="https://avatars.githubusercontent.com/u/57602117?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcos Paulo Marques Corrêa </b></sub></a><br /><a href="https://github.com/marcosbarker/ecommerce-API-Restful/commits?author=marcosbarker" title="Code">💻</a></td>
   </tr>
 </table>
 
