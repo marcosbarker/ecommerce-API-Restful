@@ -116,14 +116,6 @@ public class EnderecoService {
 		endereco.setEstado(enderecoVO.getUf());
 		endereco.setCep(enderecoVO.getCep());
 		
-		if (enderecoVO.getListClienteVO() != null) {
-			List<Cliente> listCliente = new ArrayList<>();
-			
-		for (ClienteVO lClienteVO : enderecoVO.getListClienteVO()) {
-			
-		}
-		}
-		
 		return endereco;
 	}
 	
@@ -140,13 +132,6 @@ public class EnderecoService {
 		endereco.setEstado(enderecoVO.getUf());
 		endereco.setCep(enderecoVO.getCep());
 		
-		if (enderecoVO.getListClienteVO() != null) {
-			List<Cliente> listCliente = new ArrayList<>();
-			
-		for (ClienteVO lClienteVO : enderecoVO.getListClienteVO()) {
-			
-			}
-		}
 		
 		return endereco;
 	}

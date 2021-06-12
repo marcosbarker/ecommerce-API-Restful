@@ -68,6 +68,11 @@ public class PedidoService {
 		pedidoRepository.save(novaPedido);
 		return converteEntidadeParaVO(novaPedido);
 	}
+	
+	public Pedido saveReturnEntidade(Pedido pedido) {
+		return pedidoRepository.save(pedido);
+		
+	}
 
 	public PedidoVO update(PedidoVO pedidoVO, Integer id) {
 		Pedido pedido = converteVOParaEntidade(pedidoVO);

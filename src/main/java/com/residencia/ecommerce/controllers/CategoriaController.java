@@ -28,10 +28,16 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
 	
-	@GetMapping("/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<CategoriaVO> findById(@PathVariable Integer id) {
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(categoriaService.findById(id), headers, HttpStatus.OK);
+	}
+	
+	@GetMapping("/nome/{name}")
+	public ResponseEntity<CategoriaVO> findByName(@PathVariable String name) {
+		HttpHeaders headers = new HttpHeaders();
+		return new ResponseEntity<>(categoriaService.findByName(name), headers, HttpStatus.OK);
 	}
 	
 	@GetMapping("/listar-todos")

@@ -2,6 +2,8 @@ package com.residencia.ecommerce.controllers;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.residencia.ecommerce.exception.EmailException;
 import com.residencia.ecommerce.services.ClienteService;
+import com.residencia.ecommerce.services.EmailService;
 import com.residencia.ecommerce.vo.ClienteVO;
 import com.residencia.ecommerce.vo.Views.ClienteView;
 
@@ -27,6 +31,9 @@ public class ClienteController {
 	
 	@Autowired
     private ClienteService clienteService;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ClienteView> findById(@PathVariable Integer id) {
@@ -52,15 +59,19 @@ public class ClienteController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ClienteVO> save(@RequestBody ClienteVO clienteVO){
+	public ResponseEntity<ClienteVO> save(@RequestBody ClienteVO clienteVO) throws MessagingException, EmailException{
 		HttpHeaders headers = new HttpHeaders();
 	
 		ClienteVO novoClienteVO = clienteService.save(clienteVO);
 		
-		if(null != novoClienteVO)
+		if(null != novoClienteVO) {
+			emailService.emailCadastro(novoClienteVO);
 			return new ResponseEntity<>(novoClienteVO, headers, HttpStatus.OK);
-		else
+		}
+			
+		else {
 			return new ResponseEntity<>(novoClienteVO, headers, HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@PutMapping("/{id}")
