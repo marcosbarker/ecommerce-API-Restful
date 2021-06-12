@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "JpBade",
+      "name": "João Paulo Bade",
+      "avatar_url": "https://avatars.githubusercontent.com/u/82114843?v=4",
+      "profile": "https://github.com/JpBade",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "ecommerce-API-Restful",
+  "projectOwner": "marcosbarker",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
