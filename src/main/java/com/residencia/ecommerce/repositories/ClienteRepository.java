@@ -8,4 +8,6 @@ import com.residencia.ecommerce.entities.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository <Cliente, Integer> {
 			public Cliente findByUsername(String username);
+			public Cliente findByEmail(String email);
+			public Cliente findByCpf(String cpf);
 }

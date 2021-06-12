@@ -29,7 +29,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	  private static final String USUARIO_POR_LOGIN = "SELECT username, senha , 'true' as enable FROM client WHERE username=?";
 	  
-	  private static final String USUARIO_AUTHORITY = "SELECT username,authority FROM client WHERE username = ?";
+	  private static final String USUARIO_AUTHORITY = "SELECT username, 'ROLE_USER' as authority FROM client WHERE username = ?";
 	     
 	  @Autowired
 	  private DataSource dataSource;
