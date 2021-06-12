@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.residencia.ecommerce.exception.EmailException;
+import com.residencia.ecommerce.repositories.ClienteRepository;
 import com.residencia.ecommerce.services.ClienteService;
 import com.residencia.ecommerce.services.EmailService;
 import com.residencia.ecommerce.vo.ClienteVO;
@@ -33,6 +34,9 @@ public class ClienteController {
 	
 	@Autowired
     private ClienteService clienteService;
+	
+	@Autowired
+    private ClienteRepository clienteRepository;
 	
 	@Autowired
 	private EmailService emailService;
@@ -67,21 +71,60 @@ public class ClienteController {
 		return clienteService.count();
 	}
 	
+//	@PostMapping("/cadastro")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public ResponseEntity<ClienteVO> save(@Valid @RequestBody ClienteVO clienteVO) throws MessagingException, EmailException{
+//		HttpHeaders headers = new HttpHeaders();
+//	
+//		ClienteVO novoClienteVO = clienteService.save(clienteVO);
+//		
+//		if(null != novoClienteVO) {
+//			emailService.emailCadastro(novoClienteVO);
+//			return new ResponseEntity<>(novoClienteVO, headers, HttpStatus.OK);
+//		}
+//			
+//		else {
+//			return new ResponseEntity<>(novoClienteVO, headers, HttpStatus.BAD_REQUEST);
+//		}
+//	}
+	
 	@PostMapping("/cadastro")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<ClienteVO> save(@Valid @RequestBody ClienteVO clienteVO) throws MessagingException, EmailException{
+	public ResponseEntity<String> save(@Valid @RequestBody ClienteVO clienteVO) throws MessagingException, EmailException{
 		HttpHeaders headers = new HttpHeaders();
-	
-		ClienteVO novoClienteVO = clienteService.save(clienteVO);
-		
-		if(null != novoClienteVO) {
-			emailService.emailCadastro(novoClienteVO);
-			return new ResponseEntity<>(novoClienteVO, headers, HttpStatus.OK);
-		}
+
+
+		if(null != clienteVO) {
 			
-		else {
-			return new ResponseEntity<>(novoClienteVO, headers, HttpStatus.BAD_REQUEST);
-		}
+			if (clienteRepository.findByUsername(clienteVO.getUsername()) == null) {
+				
+				if(clienteRepository.findByEmail(clienteVO.getEmail()) == null) {
+					
+					if(clienteRepository.findByCpf(clienteVO.getCpf()) == null) {
+						
+						ClienteVO novoClienteVO = clienteService.save(clienteVO);
+						emailService.emailCadastro(novoClienteVO);
+						return new ResponseEntity<>("Cadastro Efetuado com Sucesso", headers, HttpStatus.OK);
+						
+						}
+						else {
+							return new ResponseEntity<>("CPF ja Cadastrado", headers, HttpStatus.BAD_REQUEST);
+						}
+						
+					}
+					else {
+						return new ResponseEntity<>("Email ja Cadastrado", headers, HttpStatus.BAD_REQUEST);
+					}
+					
+				}
+				else {
+					return new ResponseEntity<>("Username ja Cadastrado", headers, HttpStatus.BAD_REQUEST);
+				}
+				
+			}
+			else {
+				return new ResponseEntity<>("Insira dados validos", headers, HttpStatus.BAD_REQUEST);
+			}	
 	}
 	
 	@PutMapping("/{id}")
