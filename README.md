@@ -80,8 +80,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://linktr.ee/marcos_barker"><img src="https://avatars.githubusercontent.com/u/57602117?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcos Paulo Marques Corrêa </b></sub></a><br /><a href="https://github.com/marcosbarker/ecommerce-API-Restful/commits?author=marcosbarker" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/mpj144"><img src="https://avatars.githubusercontent.com/u/82114419?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcelo Pires</b></sub></a><br /><a href="https://github.com/marcosbarker/ecommerce-API-Restful/commits?author=mpj144" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/JpBade"><img src="https://avatars.githubusercontent.com/u/82114843?v=4?s=100" width="100px;" alt=""/><br /><sub><b>João Paulo Bade</b></sub></a><br /><a href="https://github.com/marcosbarker/ecommerce-API-Restful/commits?author=JpBade" title="Code">💻</a></td>
-    <td align="center"><a href="http://wiredvanity.com/"><img src="https://avatars.githubusercontent.com/u/823?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Igor Schwarzmann</b></sub></a><br /><a href="https://github.com/marcosbarker/ecommerce-API-Restful/commits?author=Igor" title="Code">💻</a></td>
-  </tr>
+   </tr>
 </table>
 
 <!-- markdownlint-restore -->
