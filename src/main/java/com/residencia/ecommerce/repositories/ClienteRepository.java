@@ -7,5 +7,5 @@ import com.residencia.ecommerce.entities.Cliente;
 
 @Repository
 public interface ClienteRepository extends JpaRepository <Cliente, Integer> {
-			
+			public Cliente findByUsername(String username);
 }

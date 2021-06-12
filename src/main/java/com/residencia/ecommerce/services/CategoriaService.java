@@ -30,6 +30,12 @@ public class CategoriaService {
 		CategoriaVO categoriaVO = converteEntidadeParaVO(categoria);
 		return categoriaVO;
 	}
+	
+	public CategoriaVO findByName(String name) {
+		Categoria categoria = categoriaRepository.findByNome(name);
+		CategoriaVO categoriaVO = converteEntidadeParaVO(categoria);
+		return categoriaVO;
+	}
 
 	public List<CategoriaVO> findAllVO(Integer pagina, Integer qtdRegistros) throws Exception {
 		Pageable page = null;
@@ -86,13 +92,14 @@ public class CategoriaService {
 		categoriaVO.setNome(categoria.getNome());
 		categoriaVO.setDescricao(categoria.getDescricao());
 		
-		
+		if (categoriaVO.getListProdutoVO() != null) { 
 		for (Produto lProduto : categoria.getListProduto()) {
 			listProdutoVO.add(produtoService.converteEntidadeParaVO(lProduto));
 		}
 		categoriaVO.setListProdutoVO(listProdutoVO);
-		return categoriaVO;
 		
+		}
+		return categoriaVO;
 	}
 
 	public Categoria converteVOParaEntidade(CategoriaVO categoriaVO) {
@@ -103,11 +110,13 @@ public class CategoriaService {
 		categoria.setNome(categoriaVO.getNome());
 		categoria.setDescricao(categoriaVO.getDescricao());
 		
+		if (categoriaVO.getListProdutoVO() != null) {
 		
 		for (ProdutoVO lProdutoVO : categoriaVO.getListProdutoVO()) {
 			listProduto.add(produtoService.converteVOParaEntidade(lProdutoVO));
 		}
-		
+			categoria.setListProduto(listProduto);
+		}
 		return categoria;
 	}
 	

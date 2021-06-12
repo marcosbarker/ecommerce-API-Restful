@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.residencia.ecommerce.entities.Cliente;
 import com.residencia.ecommerce.entities.Pedido;
 import com.residencia.ecommerce.repositories.ClienteRepository;
+import com.residencia.ecommerce.repositories.PedidoRepository;
 import com.residencia.ecommerce.vo.ClienteVO;
 import com.residencia.ecommerce.vo.PedidoVO;
 import com.residencia.ecommerce.vo.Views.ClienteView;
@@ -27,6 +28,9 @@ public class ClienteService {
 	
 	@Autowired
 	PedidoService pedidoService;
+	
+	@Autowired	
+	PedidoRepository pedidoRepository;
 	
 	public ClienteView findById(Integer id) {
 		Cliente cliente = clienteRepository.findById(id).get();
@@ -97,6 +101,7 @@ public class ClienteService {
 		clienteVO.setEnderecoVO(enderecoService.converteEntidadeParaVO(cliente.getEndereco()));
 		
 		
+		
 		if (cliente.getListPedido() != null) {
 			for (Pedido lPedido : cliente.getListPedido()) {
 				listPedidoVO.add(pedidoService.converteEntidadeParaVO(lPedido));
@@ -122,10 +127,8 @@ public class ClienteService {
 		cliente.setDataDeNascimento(clienteVO.getDataDeNascimento());
 		cliente.setEndereco(enderecoService.save(enderecoService.consultarCep(clienteVO.getCep()), clienteVO));
 		
-		
 		if (clienteVO.getListPedidoVO() != null) {
 			
-		
 			for (PedidoVO lPedidoVO : clienteVO.getListPedidoVO()) {
 				listPedido.add(pedidoService.converteVOParaEntidade(lPedidoVO));
 			}
@@ -141,18 +144,22 @@ public class ClienteService {
 	
 	public ClienteView converteEntidadeParaView(Cliente cliente) {
 		ClienteView clienteView = new ClienteView();
-		List<PedidoClienteView> listPedidoClienteView = new ArrayList();
 		
 		clienteView.setNome(cliente.getNome());
 		clienteView.setEmail(cliente.getEmail());
 		clienteView.setCpf(cliente.getCpf());
 		
-		for (Pedido lPedido : cliente.getListPedido()) {
-			listPedidoClienteView.add(pedidoService.converteEntidadeParaView(lPedido));
+		if(pedidoRepository.count() > 0) {
+			List<PedidoClienteView> listPedidoClienteView = new ArrayList<PedidoClienteView>();
+				
+			for (Pedido lPedido : cliente.getListPedido()) {
+				listPedidoClienteView.add(pedidoService.converteEntidadeParaView(lPedido));
 		}
-			
-		clienteView.setListPedidoClienteView(listPedidoClienteView);
+			clienteView.setListPedidoClienteView(listPedidoClienteView);
+		}		
+		
 		return clienteView;
+		
 	}
 
 }

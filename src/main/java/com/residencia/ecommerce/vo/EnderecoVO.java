@@ -1,6 +1,5 @@
 package com.residencia.ecommerce.vo;
 
-import java.util.List;
 
 
 public class EnderecoVO {
@@ -13,7 +12,7 @@ public class EnderecoVO {
 	private Integer numero;
 	private String complemento;
 	private String uf; // ESTADO
-	private List<ClienteVO> listClienteVO;
+
 
 	public Integer getEnderecoId() {
 		return enderecoId;
@@ -79,12 +78,6 @@ public class EnderecoVO {
 		this.uf = uf;
 	}
 
-	public List<ClienteVO> getListClienteVO() {
-		return listClienteVO;
-	}
 
-	public void setListCliente(List<ClienteVO> listClienteVO) {
-		this.listClienteVO = listClienteVO;
-	}
 
 }

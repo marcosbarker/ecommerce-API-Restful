@@ -6,4 +6,6 @@ import com.residencia.ecommerce.entities.Categoria;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer>{
 	
+	public Categoria findByNome(String nome);
+	
 }

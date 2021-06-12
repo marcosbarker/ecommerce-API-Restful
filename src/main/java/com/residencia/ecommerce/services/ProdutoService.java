@@ -90,6 +90,7 @@ public class ProdutoService {
 		  produtoVO.setQuantidadeEmEstoque(produto.getQuantidadeEmEstoque());
 		  produtoVO.setDataDeCadastroDoProduto(produto.getDataDeCadastroDoProduto());
 		  produtoVO.setCategoriaVO(categoriaService.converteEntidadeParaVO(produto.getCategoria()));
+		  
 		  produtoVO.setProdutoPedidoVO(produtoPedidoService.converteEntidadeParaVO(produto.getProdutoPedido()));
 		  
 		  return produtoVO;
@@ -108,6 +109,7 @@ public class ProdutoService {
 		  produto.setQuantidadeEmEstoque(produtoVO.getQuantidadeEmEstoque());
 		  produto.setDataDeCadastroDoProduto(produtoVO.getDataDeCadastroDoProduto());
 		  produto.setCategoria(categoriaService.converteVOParaEntidade(produtoVO.getCategoriaVO()));
+		  
 		  produto.setProdutoPedido(produtoPedidoService.converteVOParaEntidade(produtoVO.getProdutoPedidoVO()));
 	  
 		 return produto; 
