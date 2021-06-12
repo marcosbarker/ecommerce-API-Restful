@@ -1,7 +1,4 @@
 [🚧**issues**](https://github.com/marcosbarker/ecommerce-API-Restful/issues/1) <a name="back-to-top">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 <p align="center">
   <img height="400px" src="https://freevector-images.s3.amazonaws.com/uploads/vector/preview/36682/36682.png" alt="logo ecommerce"/>
 </p>
@@ -10,7 +7,9 @@
 </p>
 <h3 align="center">Professor Alexandre de Oliveira Paixão</h3>
 </br>
-
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 ***Para ser incluido em contribuidores de forma automática, mande em seu Pull Request um comentario com o comando:***
 ~~~html
 @all-contributors please add @<username> for <contributions>
