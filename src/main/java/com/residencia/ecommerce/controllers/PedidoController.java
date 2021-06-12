@@ -47,6 +47,7 @@ public class PedidoController {
 	@GetMapping("/count")
 	public Long count() {
 		return pedidoService.count();
+		//IGOR E MARCOS
 	}
 
 	@PostMapping
