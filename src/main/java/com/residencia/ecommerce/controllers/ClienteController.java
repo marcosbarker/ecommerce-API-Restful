@@ -42,6 +42,13 @@ public class ClienteController {
 				headers, HttpStatus.OK);
 	}
 	
+	@GetMapping("/myinfo")
+	public ResponseEntity<ClienteView> findMyInfo() {
+		HttpHeaders headers = new HttpHeaders();
+		return new ResponseEntity<>(clienteService.findMyInfo(clienteService.getCliente()), 
+				headers, HttpStatus.OK);
+	}
+	
 	@GetMapping("/listar-todos")
 	public ResponseEntity<List<ClienteView>> findAllView(
 			@RequestParam(required = false) Integer pagina,
@@ -58,7 +65,7 @@ public class ClienteController {
 		return clienteService.count();
 	}
 	
-	@PostMapping
+	@PostMapping("/cadastro")
 	public ResponseEntity<ClienteVO> save(@RequestBody ClienteVO clienteVO) throws MessagingException, EmailException{
 		HttpHeaders headers = new HttpHeaders();
 	

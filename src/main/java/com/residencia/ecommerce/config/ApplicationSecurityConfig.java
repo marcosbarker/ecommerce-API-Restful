@@ -47,13 +47,13 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	 protected void configure(HttpSecurity http) throws Exception {
-		    http
-		    
-		    .authorizeRequests()
-			.antMatchers(HttpMethod.POST, "/cliente").permitAll()
+		    http.csrf().disable().authorizeRequests()
+			.antMatchers(HttpMethod.POST, "/cliente/cadastro").permitAll()
+			.antMatchers(HttpMethod.GET, "/categoria/id/{id}").permitAll()
 	        .anyRequest().authenticated()
 	        .and()
 	        .httpBasic();
+		    
 		  }
 }
 
