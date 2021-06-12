@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,11 +36,26 @@ public class ClienteService {
 	PedidoRepository pedidoRepository;
 	
 	public ClienteView findById(Integer id) {
+		
+		System.out.println(getCliente());
 		Cliente cliente = clienteRepository.findById(id).get();
 		ClienteView clienteView = converteEntidadeParaView(cliente);
 		return clienteView;
+		
+		
 	}
-
+	
+	public ClienteView findMyInfo(String Username) {
+		Cliente cliente = clienteRepository.findByUsername(Username);
+		ClienteView clienteView = converteEntidadeParaView(cliente);
+		return clienteView;	
+	}
+	
+	public String getCliente() {
+		Authentication authentication = (Authentication) SecurityContextHolder.getContext().getAuthentication();
+		return authentication.getName();
+	}
+	
 	public List<ClienteView> findAllView(Integer pagina, Integer qtdRegistros) throws Exception {
 		Pageable page = null;
 		List<Cliente> listCliente = null;
