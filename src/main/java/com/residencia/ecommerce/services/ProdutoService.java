@@ -106,7 +106,7 @@ public class ProdutoService {
 		  produto.setNome(produtoVO.getNome());
 		  produto.setDescricao(produtoVO.getDescricao());
 		  produto.setPreco(produtoVO.getPreco());
-		  produto.setQuantidadeEmEstoque(produtoVO.getQuantidadeEmEstoque());
+		  produto.setQuantidadeEmEstoque((int) produtoVO.getQuantidadeEmEstoque());
 		  produto.setDataDeCadastroDoProduto(produtoVO.getDataDeCadastroDoProduto());
 		  produto.setCategoria(categoriaService.converteVOParaEntidade(produtoVO.getCategoriaVO()));
 		  

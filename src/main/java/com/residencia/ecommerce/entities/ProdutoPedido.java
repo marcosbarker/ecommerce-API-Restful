@@ -15,14 +15,14 @@ public class ProdutoPedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "produtoPedidoid")
+	@Column(name = "produtospedidosid")
 	private Integer produtoPedidoId;
 
 	@Column(name = "quantidade")
 	private Integer quantidade;
 
 	@Column(name = "preco")
-	private Integer preco;
+	private double preco;
 
 	// relacionamento com produto
 	@OneToOne
@@ -50,11 +50,11 @@ public class ProdutoPedido {
 		this.quantidade = quantidade;
 	}
 
-	public Integer getPreco() {
+	public double getPreco() {
 		return preco;
 	}
 
-	public void setPreco(Integer preco) {
+	public void setPreco(double preco) {
 		this.preco = preco;
 	}
 

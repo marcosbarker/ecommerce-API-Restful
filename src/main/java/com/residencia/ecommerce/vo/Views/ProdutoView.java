@@ -3,7 +3,7 @@ package com.residencia.ecommerce.vo.Views;
 public class ProdutoView {
 	
 	private String nome;
-	private String preco;
+	private double preco;
 	private String categoria;
 	
 	public String getNome() {
@@ -12,10 +12,10 @@ public class ProdutoView {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getPreco() {
+	public double getPreco() {
 		return preco;
 	}
-	public void setPreco(String preco) {
+	public void setPreco(double preco) {
 		this.preco = preco;
 	}
 	public String getCategoria() {

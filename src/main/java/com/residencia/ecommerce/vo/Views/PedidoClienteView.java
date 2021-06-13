@@ -6,7 +6,7 @@ import java.util.Calendar;
 public class PedidoClienteView {
 	
 	private Integer numeroDoPedido;
-	private BigDecimal valorTotalDoPedido;
+	private double valorTotalDoPedido;
 	private Calendar dataDoPedido;
 	private String status;
 	private ProdutoPedidoView produtoPedidoView;
@@ -17,10 +17,10 @@ public class PedidoClienteView {
 	public void setNumeroDoPedido(Integer numeroDoPedido) {
 		this.numeroDoPedido = numeroDoPedido;
 	}
-	public BigDecimal getValorTotalDoPedido() {
+	public double getValorTotalDoPedido() {
 		return valorTotalDoPedido;
 	}
-	public void setValorTotalDoPedido(BigDecimal valorTotalDoPedido) {
+	public void setValorTotalDoPedido(double valorTotalDoPedido) {
 		this.valorTotalDoPedido = valorTotalDoPedido;
 	}
 	public Calendar getDataDoPedido() {

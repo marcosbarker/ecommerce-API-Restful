@@ -8,8 +8,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.residencia.ecommerce.entities.Pedido;
 import com.residencia.ecommerce.entities.ProdutoPedido;
 import com.residencia.ecommerce.repositories.ProdutoPedidoRepository;
+import com.residencia.ecommerce.repositories.ProdutoRepository;
+import com.residencia.ecommerce.vo.CadastrarNovoPedidoVO;
 import com.residencia.ecommerce.vo.ProdutoPedidoVO;
 import com.residencia.ecommerce.vo.Views.ProdutoPedidoView;
 
@@ -18,6 +21,15 @@ public class ProdutoPedidoService {
 
 	@Autowired 
 	ProdutoPedidoRepository produtoPedidoRepository;
+	
+	@Autowired 
+	PedidoService pedidoService;
+	
+	@Autowired 
+	ProdutoService produtoService;
+	
+	@Autowired 
+	ProdutoRepository produtoRepository;
 	
 	public ProdutoPedidoView findById(Integer id) {
 		ProdutoPedido ProdutoPedido = produtoPedidoRepository.findById(id).get();
@@ -56,10 +68,10 @@ public class ProdutoPedidoService {
 		return listProdutoPedidoView;
 	}
 	
-	public ProdutoPedidoVO save(ProdutoPedidoVO produtoPedidoVO) {
-		ProdutoPedido novoProdutoPedidoVO = converteVOParaEntidade(produtoPedidoVO);
-		produtoPedidoRepository.save(novoProdutoPedidoVO);
-		return converteEntidadeParaVO(novoProdutoPedidoVO);
+	public ProdutoPedido novoProdutoPedido(CadastrarNovoPedidoVO cadastrarNovoPedidoVO, Pedido pedido) {
+		ProdutoPedido novoProdutoPedido = converteCadastroPedidoParaEntidade(cadastrarNovoPedidoVO, pedido);
+		produtoPedidoRepository.save(novoProdutoPedido);
+		return novoProdutoPedido;
 	}
 
 	public ProdutoPedidoVO update(ProdutoPedidoVO produtoPedidoVO, Integer id) {
@@ -76,10 +88,10 @@ public class ProdutoPedidoService {
 		ProdutoPedidoVO produtoPedidoVO = new ProdutoPedidoVO();
 		
 		produtoPedidoVO.setProdutoPedidoId(produtoPedido.getProdutoPedidoId());
-		produtoPedidoVO.setPreco(produtoPedido.getPreco());
+		produtoPedidoVO.setPreco((int) produtoPedido.getPreco());
 		produtoPedidoVO.setQuantidade(produtoPedido.getQuantidade());
-		produtoPedidoVO.setProduto(produtoPedido.getProduto());
-		produtoPedidoVO.setPedido(produtoPedido.getPedido());
+		produtoPedidoVO.setProdutoVO(produtoService.converteEntidadeParaVO(produtoPedido.getProduto()));
+		produtoPedidoVO.setPedidoVO(pedidoService.converteEntidadeParaVO(produtoPedido.getPedido()));
 		
 		return produtoPedidoVO;
 		
@@ -91,8 +103,8 @@ public class ProdutoPedidoService {
 		produtoPedido.setProdutoPedidoId(produtoPedidoVO.getProdutoPedidoId());
 		produtoPedido.setPreco(produtoPedidoVO.getPreco());
 		produtoPedido.setQuantidade(produtoPedidoVO.getQuantidade());
-		produtoPedido.setProduto(produtoPedidoVO.getProduto());
-		produtoPedido.setPedido(produtoPedidoVO.getPedido());
+		produtoPedido.setProduto(produtoService.converteVOParaEntidade(produtoPedidoVO.getProdutoVO()));
+		produtoPedido.setPedido(pedidoService.converteVOParaEntidade(produtoPedidoVO.getPedidoVO()));
 		
 		return produtoPedido;
 	}
@@ -109,6 +121,18 @@ public class ProdutoPedidoService {
 		
 		return produtoPedidoView;
 		
+	}
+	
+	public ProdutoPedido converteCadastroPedidoParaEntidade(CadastrarNovoPedidoVO cadastrarNovoPedidoVO, Pedido pedido) {
+		
+		ProdutoPedido novoProdutoPedido = new ProdutoPedido();
+		
+		novoProdutoPedido.setProduto(produtoRepository.findByNome(cadastrarNovoPedidoVO.getNomeProduto()));
+		novoProdutoPedido.setQuantidade(cadastrarNovoPedidoVO.getQuantidadeProduto());
+		novoProdutoPedido.setPreco(novoProdutoPedido.getProduto().getPreco());
+		novoProdutoPedido.setPedido(pedido);// POTENCIAL DE ERROR
+		
+		return novoProdutoPedido;
 	}
 
 }

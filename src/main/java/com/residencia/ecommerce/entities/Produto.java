@@ -27,16 +27,16 @@ public class Produto {
 	private String descricao;
 
 	@Column(name = "preco")
-	private String preco;
+	private double preco;
 
-	@Column(name = "quantidadeEmEstoque")
-	private String quantidadeEmEstoque;
+	@Column(name = "quantidadeestoque")
+	private Integer quantidadeEmEstoque;
 
-	@Column(name = "dataDeCadastroDoProduto")
+	@Column(name = "datadecadastro")
 	private Calendar dataDeCadastroDoProduto;
 
-	@Column(name = "imagem")
-	private String imagem; // ver conversao de imagem em base64
+//	@Column(name = "imagem")
+//	private String imagem; // ver conversao de imagem em base64
 
 	// relacionamento com categoria
 	@ManyToOne
@@ -71,19 +71,19 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
-	public String getPreco() {
+	public double getPreco() {
 		return preco;
 	}
 
-	public void setPreco(String preco) {
+	public void setPreco(double preco) {
 		this.preco = preco;
 	}
 
-	public String getQuantidadeEmEstoque() {
+	public Integer getQuantidadeEmEstoque() {
 		return quantidadeEmEstoque;
 	}
 
-	public void setQuantidadeEmEstoque(String quantidadeEmEstoque) {
+	public void setQuantidadeEmEstoque(Integer quantidadeEmEstoque) {
 		this.quantidadeEmEstoque = quantidadeEmEstoque;
 	}
 
@@ -95,13 +95,13 @@ public class Produto {
 		this.dataDeCadastroDoProduto = dataDeCadastroDoProduto;
 	}
 
-	public String getImagem() {
-		return imagem;
-	}
-
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
-	}
+//	public String getImagem() {
+//		return imagem;
+//	}
+//
+//	public void setImagem(String imagem) {
+//		this.imagem = imagem;
+//	}
 
 	public Categoria getCategoria() {
 		return categoria;

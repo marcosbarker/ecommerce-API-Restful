@@ -8,8 +8,8 @@ public class ProdutoVO {
 	private Integer produtoId;
 	private String nome;
 	private String descricao;
-	private String preco;
-	private String quantidadeEmEstoque;
+	private double preco;
+	private Integer quantidadeEmEstoque;
 	private Calendar dataDeCadastroDoProduto;
 	private String imagem;
 	private CategoriaVO categoriaVO;
@@ -39,19 +39,19 @@ public class ProdutoVO {
 		this.descricao = descricao;
 	}
 
-	public String getPreco() {
+	public double getPreco() {
 		return preco;
 	}
 
-	public void setPreco(String preco) {
+	public void setPreco(double preco) {
 		this.preco = preco;
 	}
 
-	public String getQuantidadeEmEstoque() {
+	public Integer getQuantidadeEmEstoque() {
 		return quantidadeEmEstoque;
 	}
 
-	public void setQuantidadeEmEstoque(String quantidadeEmEstoque) {
+	public void setQuantidadeEmEstoque(Integer quantidadeEmEstoque) {
 		this.quantidadeEmEstoque = quantidadeEmEstoque;
 	}
 

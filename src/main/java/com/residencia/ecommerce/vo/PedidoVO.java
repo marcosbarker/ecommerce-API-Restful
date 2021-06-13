@@ -7,7 +7,7 @@ public class PedidoVO {
 
 	private Integer pedidoId;
 	private Integer numeroDoPedido;
-	private BigDecimal valorTotalDoPedido;
+	private double valorTotalDoPedido;
 	private Calendar dataDoPedido;
 	private String status;
 	private ClienteVO clienteVO;
@@ -29,11 +29,11 @@ public class PedidoVO {
 		this.numeroDoPedido = numeroDoPedido;
 	}
 
-	public BigDecimal getValorTotalDoPedido() {
+	public double getValorTotalDoPedido() {
 		return valorTotalDoPedido;
 	}
 
-	public void setValorTotalDoPedido(BigDecimal valorTotalDoPedido) {
+	public void setValorTotalDoPedido(double valorTotalDoPedido) {
 		this.valorTotalDoPedido = valorTotalDoPedido;
 	}
 

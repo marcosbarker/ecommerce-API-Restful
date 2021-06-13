@@ -51,7 +51,7 @@ public class ClienteController {
 	@GetMapping("/myinfo")
 	public ResponseEntity<ClienteView> findMyInfo() {
 		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<>(clienteService.findMyInfo(clienteService.getCliente()), 
+		return new ResponseEntity<>(clienteService.findMyInfo(clienteService.getCliente().getUsername()), 
 				headers, HttpStatus.OK);
 	}
 	
