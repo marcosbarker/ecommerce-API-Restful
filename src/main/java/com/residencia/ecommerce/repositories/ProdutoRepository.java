@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.residencia.ecommerce.entities.Produto;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
-
+		public Produto findByNome(String nome);
 }

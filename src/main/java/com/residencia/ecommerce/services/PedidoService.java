@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.residencia.ecommerce.entities.Pedido;
 import com.residencia.ecommerce.repositories.PedidoRepository;
+import com.residencia.ecommerce.vo.CadastrarNovoPedidoVO;
 import com.residencia.ecommerce.vo.PedidoVO;
 import com.residencia.ecommerce.vo.Views.PedidoClienteView;
 
@@ -67,6 +68,23 @@ public class PedidoService {
 		Pedido novaPedido = converteVOParaEntidade(pedidoVO);
 		pedidoRepository.save(novaPedido);
 		return converteEntidadeParaVO(novaPedido);
+	}
+	
+	public PedidoClienteView novoPedido(CadastrarNovoPedidoVO cadastrarNovoPedidoVO) {
+		
+		Pedido novaPedido = converteCadastroPedidoParaEntidade(cadastrarNovoPedidoVO);
+		pedidoRepository.save(novaPedido);
+		
+		novaPedido.setProdutoPedido(produtoPedidoService.novoProdutoPedido(cadastrarNovoPedidoVO, novaPedido));
+		novaPedido.setValorTotalDoPedido(novaPedido.getProdutoPedido().getPreco() * novaPedido.getProdutoPedido().getQuantidade());
+		
+		pedidoRepository.save(novaPedido);
+		
+		List<Pedido> lPedido = clienteSerivce.getCliente().getListPedido();
+		lPedido.add(novaPedido);
+		clienteSerivce.getCliente().setListPedido(lPedido);
+		
+		return converteEntidadeParaView(novaPedido);
 	}
 	
 	public Pedido saveReturnEntidade(Pedido pedido) {
@@ -130,6 +148,18 @@ public class PedidoService {
 		pedidoClienteView.setProdutoPedidoView(produtoPedidoService.converteEntidadeParaView(pedido.getProdutoPedido()));
 		
 		return pedidoClienteView;
+	}
+	
+	public Pedido converteCadastroPedidoParaEntidade(CadastrarNovoPedidoVO cadastrarNovoPedidoVO) {
+		
+		Pedido novoPedido = new Pedido();
+		
+		novoPedido.setCliente(clienteSerivce.getCliente());
+		novoPedido.setNumeroDoPedido((int) (count()+1));
+		novoPedido.setStatus("Finalizado");
+
+		
+		return novoPedido;
 	}
 
 	

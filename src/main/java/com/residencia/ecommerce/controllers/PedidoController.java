@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.residencia.ecommerce.services.PedidoService;
+import com.residencia.ecommerce.vo.CadastrarNovoPedidoVO;
 import com.residencia.ecommerce.vo.PedidoVO;
 import com.residencia.ecommerce.vo.Views.PedidoClienteView;
 
@@ -56,6 +57,20 @@ public class PedidoController {
 		HttpHeaders headers = new HttpHeaders();
 
 		PedidoVO novoPedidoVO = pedidoService.save(pedidoVO);
+
+		if (null != novoPedidoVO)
+			return new ResponseEntity<>(novoPedidoVO, headers, HttpStatus.OK);
+		else
+			return new ResponseEntity<>(novoPedidoVO, headers, HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	@PostMapping("/novo-pedido")
+	public ResponseEntity<PedidoClienteView> novoPedido(@RequestBody CadastrarNovoPedidoVO cadastrarNovoPedidoVO) {
+
+		HttpHeaders headers = new HttpHeaders();
+
+		PedidoClienteView novoPedidoVO = pedidoService.novoPedido(cadastrarNovoPedidoVO);
 
 		if (null != novoPedidoVO)
 			return new ResponseEntity<>(novoPedidoVO, headers, HttpStatus.OK);

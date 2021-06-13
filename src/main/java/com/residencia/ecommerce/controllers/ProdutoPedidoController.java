@@ -49,18 +49,18 @@ public class ProdutoPedidoController {
 		return produtoPedidoService.count();
 	}
 
-	@PostMapping
-	public ResponseEntity<ProdutoPedidoVO> save(@RequestBody ProdutoPedidoVO produtoPedidoVO) {
-
-		HttpHeaders headers = new HttpHeaders();
-
-		ProdutoPedidoVO novoProdutoPedidoVO = produtoPedidoService.save(produtoPedidoVO);
-
-		if (null != novoProdutoPedidoVO)
-			return new ResponseEntity<>(novoProdutoPedidoVO, headers, HttpStatus.OK);
-		else
-			return new ResponseEntity<>(novoProdutoPedidoVO, headers, HttpStatus.BAD_REQUEST);
-	}
+//	@PostMapping
+//	public ResponseEntity<ProdutoPedidoVO> save(@RequestBody ProdutoPedidoVO produtoPedidoVO) {
+//
+//		HttpHeaders headers = new HttpHeaders();
+//
+//		ProdutoPedidoVO novoProdutoPedidoVO = produtoPedidoService.save(produtoPedidoVO);
+//
+//		if (null != novoProdutoPedidoVO)
+//			return new ResponseEntity<>(novoProdutoPedidoVO, headers, HttpStatus.OK);
+//		else
+//			return new ResponseEntity<>(novoProdutoPedidoVO, headers, HttpStatus.BAD_REQUEST);
+//	}
 
 	@PutMapping("/{id}")
 	public ProdutoPedidoVO update(@RequestBody ProdutoPedidoVO produtoPedidoVO, Integer id) {

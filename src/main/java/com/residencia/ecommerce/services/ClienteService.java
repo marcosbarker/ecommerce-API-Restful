@@ -42,7 +42,6 @@ public class ClienteService {
 		ClienteView clienteView = converteEntidadeParaView(cliente);
 		return clienteView;
 		
-		
 	}
 	
 	public ClienteView findMyInfo(String Username) {
@@ -51,9 +50,11 @@ public class ClienteService {
 		return clienteView;	
 	}
 	
-	public String getCliente() {
+	public Cliente getCliente() {
 		Authentication authentication = (Authentication) SecurityContextHolder.getContext().getAuthentication();
-		return authentication.getName();
+		Cliente cliente = clienteRepository.findByUsername(authentication.getName());
+		return cliente;
+		
 	}
 	
 	public List<ClienteView> findAllView(Integer pagina, Integer qtdRegistros) throws Exception {

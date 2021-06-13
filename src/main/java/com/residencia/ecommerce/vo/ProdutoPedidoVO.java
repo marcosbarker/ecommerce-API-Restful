@@ -1,15 +1,13 @@
 package com.residencia.ecommerce.vo;
 
-import com.residencia.ecommerce.entities.Pedido;
-import com.residencia.ecommerce.entities.Produto;
 
 public class ProdutoPedidoVO {
 
 	private Integer produtoPedidoId;
 	private Integer quantidade;
 	private Integer preco;
-	private Produto produto; 
-	private Pedido pedido;
+	private ProdutoVO produtoVO; 
+	private PedidoVO pedidoVO;
 	
 	
 	public Integer getProdutoPedidoId() {
@@ -36,20 +34,20 @@ public class ProdutoPedidoVO {
 		this.preco = preco;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public ProdutoVO getProdutoVO() {
+		return produtoVO;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setProdutoVO(ProdutoVO produtoVO) {
+		this.produtoVO = produtoVO;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
+	public PedidoVO getPedidoVO() {
+		return pedidoVO;
 	}
 
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+	public void setPedidoVO(PedidoVO pedidoVO) {
+		this.pedidoVO = pedidoVO;
 	}
 	
 	
