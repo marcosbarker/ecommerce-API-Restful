@@ -2,6 +2,8 @@ package com.residencia.ecommerce.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,11 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.residencia.ecommerce.entities.Produto;
 import com.residencia.ecommerce.services.ProdutoService;
-import com.residencia.ecommerce.vo.PedidoVO;
 import com.residencia.ecommerce.vo.ProdutoVO;
-import com.residencia.ecommerce.vo.Views.PedidoClienteView;
 import com.residencia.ecommerce.vo.Views.ProdutoView;
 
 @RestController
@@ -53,7 +52,7 @@ public class ProdutoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ProdutoVO> save(@RequestBody ProdutoVO produtoVO) {
+	public ResponseEntity<ProdutoVO> save(@Valid @RequestBody ProdutoVO produtoVO) {
 
 		HttpHeaders headers = new HttpHeaders();
 

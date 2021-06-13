@@ -2,6 +2,8 @@ package com.residencia.ecommerce.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -66,7 +68,7 @@ public class PedidoController {
 	
 	
 	@PostMapping("/novo-pedido")
-	public ResponseEntity<PedidoClienteView> novoPedido(@RequestBody CadastrarNovoPedidoVO cadastrarNovoPedidoVO) {
+	public ResponseEntity<PedidoClienteView> novoPedido(@Valid @RequestBody CadastrarNovoPedidoVO cadastrarNovoPedidoVO) {
 
 		HttpHeaders headers = new HttpHeaders();
 

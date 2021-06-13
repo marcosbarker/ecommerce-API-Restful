@@ -2,11 +2,17 @@ package com.residencia.ecommerce.vo;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 
 public class CategoriaVO {
 	
 	private Integer categoriaId;
+	
+	@NotBlank(message = "Insira o nome da categoria do produto")
 	private String nome;
+	
+	@NotBlank(message = "Insira a descrição da categoria do produto")
 	private String descricao;
 	private List<ProdutoVO> listProdutoVO;
 	
