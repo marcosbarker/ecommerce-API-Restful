@@ -2,15 +2,27 @@ package com.residencia.ecommerce.vo;
 
 import java.util.Calendar;
 
+import javax.validation.constraints.NotBlank;
+
 
 public class ProdutoVO {
 
 	private Integer produtoId;
+	
+	@NotBlank(message = "Insira o nome do produto a ser cadastrado")
 	private String nome;
+	
+	@NotBlank(message = "Insira a descrição do produto a ser cadastrado")
 	private String descricao;
-	private double preco;
+	
+	@NotBlank(message = "Insira o valor do produto a ser cadastrado")
+	private Double preco;
+	
+	@NotBlank(message = "Insira a quantidade do estoque do produto a ser cadastrado")
 	private Integer quantidadeEmEstoque;
+	
 	private Calendar dataDeCadastroDoProduto;
+	
 	private String imagem;
 	private CategoriaVO categoriaVO;
 	private ProdutoPedidoVO produtoPedidoVO;

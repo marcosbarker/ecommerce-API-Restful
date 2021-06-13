@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.br.CPF;
+
 
 
 
@@ -35,8 +35,7 @@ public class ClienteVO {
 	private String nome;
 
 	@NotBlank(message = "Insira um CPF")
-	@CPF
-	@Pattern(regexp = "([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}-[0-9]{2})|([0-9]{11})", message = "Insira um CPF válido")
+	@Pattern(regexp = "([0-9]{11})", message = "Insira um CPF de 11 dígitos apenas com números")
 	private String cpf; 
 	
 	
@@ -44,17 +43,15 @@ public class ClienteVO {
 	@Size(min = 10, max = 11, message = "Insira número com no mínimo {min} e no máximo {max} dígitos.")
 	private String telefone;
 	
-	
 	private Calendar dataDeNascimento;
-	
 	
 	private EnderecoVO enderecoVO;
 	private List<PedidoVO> listPedidoVO;
 	
-	@NotBlank(message = "Insira o seu CEP")
+	@NotBlank(message = "Insira um CEP")
+	@Pattern(regexp = "([0-9]{8})", message = "Insira um CEP com 8 dígitos apenas com números")
 	private String cep;
 	
-
 	private Integer numeroCasa;
 	
 	public Integer getClientId() {
