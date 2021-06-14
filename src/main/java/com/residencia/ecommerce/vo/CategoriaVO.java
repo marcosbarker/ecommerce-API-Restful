@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
+import com.residencia.ecommerce.vo.Views.ProdutoView;
+
 
 public class CategoriaVO {
 	
@@ -14,7 +16,7 @@ public class CategoriaVO {
 	
 	@NotBlank(message = "Insira a descrição da categoria do produto")
 	private String descricao;
-	private List<ProdutoVO> listProdutoVO;
+	private List<ProdutoView> listProdutoVO;
 	
 	
 	public Integer getCategoriaId() {
@@ -35,10 +37,10 @@ public class CategoriaVO {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public List<ProdutoVO> getListProdutoVO() {
+	public List<ProdutoView> getListProdutoVO() {
 		return listProdutoVO;
 	}
-	public void setListProdutoVO(List<ProdutoVO> listProdutoVO) {
+	public void setListProdutoVO(List<ProdutoView> listProdutoVO) {
 		this.listProdutoVO = listProdutoVO;
 	}
 	

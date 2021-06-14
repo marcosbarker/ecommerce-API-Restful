@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.residencia.ecommerce.repositories.CategoriaRepository;
 import com.residencia.ecommerce.services.CategoriaService;
 import com.residencia.ecommerce.vo.CategoriaVO;
 
@@ -29,6 +30,9 @@ public class CategoriaController {
 
 	@Autowired
 	private CategoriaService categoriaService;
+	
+	@Autowired
+	CategoriaRepository categoriaRepository;
 	
 	@GetMapping("/id/{id}")
 	public ResponseEntity<CategoriaVO> findById(@PathVariable Integer id) {
@@ -75,9 +79,20 @@ public class CategoriaController {
        return categoriaService.update(categoriaVO, id);
     }
 	
-	@DeleteMapping("/{id}")
-	public void DeleteById (@PathVariable Integer id) {
-		categoriaService.delete(id);
-    }
+	@DeleteMapping("/{nome}")
+	public ResponseEntity<String> DeleteById (@PathVariable String nome) {
+		
+		HttpHeaders headers = new HttpHeaders();
+		
+		if(categoriaRepository.findByNome(nome) != null) {
+			categoriaService.delete(nome);
+			return new ResponseEntity<>("Categoria " + nome + " Deletada", headers, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>("Categoria inexistente", headers, HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+		
+ }
 
-}

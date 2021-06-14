@@ -167,7 +167,7 @@ public class ClienteService {
 	
 	public void delete (Cliente cliente) {
 		
-		enderecoRepository.deleteById(cliente.getEndereco().getEnderecoId());
+		
 		
 		for (Pedido lPedido : cliente.getListPedido()) {
 			
@@ -177,7 +177,11 @@ public class ClienteService {
 			
 		}
 		
+		Integer enderecoid = cliente.getEndereco().getEnderecoId();
+		
 		clienteRepository.deleteById(cliente.getClientId());
+		
+		enderecoRepository.deleteById(enderecoid);
 
 	}
 	
