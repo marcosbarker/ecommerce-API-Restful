@@ -22,10 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.residencia.ecommerce.exception.EmailException;
 import com.residencia.ecommerce.repositories.ClienteRepository;
+import com.residencia.ecommerce.services.AuthService;
 import com.residencia.ecommerce.services.ClienteService;
 import com.residencia.ecommerce.services.EmailService;
 import com.residencia.ecommerce.vo.ClienteVO;
+import com.residencia.ecommerce.vo.EsqueciSenhaVO;
 import com.residencia.ecommerce.vo.Views.ClienteView;
+
+import javassist.tools.rmi.ObjectNotFoundException;
 
 
 @RestController
@@ -40,6 +44,11 @@ public class ClienteController {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private AuthService authService;
+	
+	
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ClienteView> findById(@PathVariable Integer id) {
@@ -103,7 +112,7 @@ public class ClienteController {
 					if(clienteRepository.findByCpf(clienteVO.getCpf()) == null) {
 						
 						ClienteVO novoClienteVO = clienteService.save(clienteVO);
-						emailService.emailCadastro(novoClienteVO);
+						emailService.emailCadastro(novoClienteVO, clienteVO.getSenha());
 						return new ResponseEntity<>("Cadastro Efetuado com Sucesso", headers, HttpStatus.OK);
 						
 						}
@@ -132,9 +141,25 @@ public class ClienteController {
        return clienteService.update(clienteVO, id);
     }
 	
-	@DeleteMapping("/{id}")
-	public void DeleteById (@PathVariable Integer id) {
-		clienteService.delete(id);
+	@DeleteMapping("/deletar-minha-conta")
+	public void DeleteMinhaConta () {
+		
+		clienteService.delete(clienteService.getCliente());
+		
     }
+	
+	@PostMapping ("/esqueci-senha")
+	public ResponseEntity<String> esqueciSenha(@Valid @RequestBody EsqueciSenhaVO esqueciSenhaVO) throws ObjectNotFoundException, MessagingException, EmailException {
+		HttpHeaders headers = new HttpHeaders();
+		
+		if(authService.sendNewPassword(esqueciSenhaVO)) {
+			
+			return new ResponseEntity<>("Sua nova senha foi enviada para seu e-mail", headers, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>("Email Nao Cadastrado no sistema", headers, HttpStatus.BAD_REQUEST);
+		}
+	
+	}
 
 }

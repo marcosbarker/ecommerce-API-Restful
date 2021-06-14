@@ -1,6 +1,7 @@
 package com.residencia.ecommerce.vo;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class PedidoVO {
@@ -8,7 +9,7 @@ public class PedidoVO {
 	private Integer pedidoId;
 	private Integer numeroDoPedido;
 	private double valorTotalDoPedido;
-	private Calendar dataDoPedido;
+	private LocalDate dataDoPedido;
 	private String status;
 	private ClienteVO clienteVO;
 	private ProdutoPedidoVO produtoPedidoVO;
@@ -37,11 +38,11 @@ public class PedidoVO {
 		this.valorTotalDoPedido = valorTotalDoPedido;
 	}
 
-	public Calendar getDataDoPedido() {
+	public LocalDate getDataDoPedido() {
 		return dataDoPedido;
 	}
 
-	public void setDataDoPedido(Calendar dataDoPedido) {
+	public void setDataDoPedido(LocalDate dataDoPedido) {
 		this.dataDoPedido = dataDoPedido;
 	}
 

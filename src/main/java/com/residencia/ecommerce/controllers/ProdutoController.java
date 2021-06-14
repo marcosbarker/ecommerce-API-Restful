@@ -52,16 +52,16 @@ public class ProdutoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ProdutoVO> save(@Valid @RequestBody ProdutoVO produtoVO) {
+	public ResponseEntity<ProdutoView> save(@Valid @RequestBody ProdutoVO produtoVO) {
 
 		HttpHeaders headers = new HttpHeaders();
 
-		ProdutoVO novoProdutoVO = produtoService.save(produtoVO);
+		ProdutoView produtoView = produtoService.save(produtoVO);
 
-		if (null != novoProdutoVO)
-			return new ResponseEntity<>(novoProdutoVO, headers, HttpStatus.OK);
+		if (null != produtoView)
+			return new ResponseEntity<>(produtoView, headers, HttpStatus.OK);
 		else
-			return new ResponseEntity<>(novoProdutoVO, headers, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(produtoView, headers, HttpStatus.BAD_REQUEST);
 	}
 
 	@PutMapping("/{id}")

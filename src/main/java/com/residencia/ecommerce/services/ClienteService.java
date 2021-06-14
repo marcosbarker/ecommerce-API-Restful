@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import com.residencia.ecommerce.entities.Cliente;
 import com.residencia.ecommerce.entities.Pedido;
 import com.residencia.ecommerce.repositories.ClienteRepository;
+import com.residencia.ecommerce.repositories.EnderecoRepository;
 import com.residencia.ecommerce.repositories.PedidoRepository;
+import com.residencia.ecommerce.repositories.ProdutoPedidoRepository;
 import com.residencia.ecommerce.vo.ClienteVO;
 import com.residencia.ecommerce.vo.PedidoVO;
 import com.residencia.ecommerce.vo.Views.ClienteView;
@@ -34,6 +36,14 @@ public class ClienteService {
 	
 	@Autowired	
 	PedidoRepository pedidoRepository;
+	
+	@Autowired
+	EnderecoRepository enderecoRepository;
+	
+	@Autowired	
+	ProdutoPedidoRepository produtoPedidoRepository;
+	
+	
 	
 	public ClienteView findById(Integer id) {
 		
@@ -119,8 +129,6 @@ public class ClienteService {
 		clienteVO.setDataDeNascimento(cliente.getDataDeNascimento());
 		clienteVO.setEnderecoVO(enderecoService.converteEntidadeParaVO(cliente.getEndereco()));
 		
-		
-		
 		if (cliente.getListPedido() != null) {
 			for (Pedido lPedido : cliente.getListPedido()) {
 				listPedidoVO.add(pedidoService.converteEntidadeParaVO(lPedido));
@@ -157,8 +165,20 @@ public class ClienteService {
 		return cliente;
 	}
 	
-	public void delete (Integer id) {
-		clienteRepository.deleteById(id);
+	public void delete (Cliente cliente) {
+		
+		enderecoRepository.deleteById(cliente.getEndereco().getEnderecoId());
+		
+		for (Pedido lPedido : cliente.getListPedido()) {
+			
+			produtoPedidoRepository.deleteById(lPedido.getProdutoPedido().getProdutoPedidoId());
+			pedidoRepository.deleteById(lPedido.getPedidoId());
+			
+			
+		}
+		
+		clienteRepository.deleteById(cliente.getClientId());
+
 	}
 	
 	public ClienteView converteEntidadeParaView(Cliente cliente) {

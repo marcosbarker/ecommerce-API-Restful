@@ -1,13 +1,13 @@
 package com.residencia.ecommerce.vo.Views;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class PedidoClienteView {
 	
 	private Integer numeroDoPedido;
 	private double valorTotalDoPedido;
-	private Calendar dataDoPedido;
+	private LocalDate dataDoPedido;
 	private String status;
 	private ProdutoPedidoView produtoPedidoView;
 	
@@ -23,10 +23,10 @@ public class PedidoClienteView {
 	public void setValorTotalDoPedido(double valorTotalDoPedido) {
 		this.valorTotalDoPedido = valorTotalDoPedido;
 	}
-	public Calendar getDataDoPedido() {
+	public LocalDate getDataDoPedido() {
 		return dataDoPedido;
 	}
-	public void setDataDoPedido(Calendar dataDoPedido) {
+	public void setDataDoPedido(LocalDate dataDoPedido) {
 		this.dataDoPedido = dataDoPedido;
 	}
 	public String getStatus() {

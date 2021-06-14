@@ -1,5 +1,6 @@
 package com.residencia.ecommerce.entities;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,10 +34,7 @@ public class Produto {
 	private Integer quantidadeEmEstoque;
 
 	@Column(name = "datadecadastro")
-	private Calendar dataDeCadastroDoProduto;
-
-//	@Column(name = "imagem")
-//	private String imagem; // ver conversao de imagem em base64
+	private LocalDate dataDeCadastroDoProduto;
 
 	// relacionamento com categoria
 	@ManyToOne
@@ -44,8 +42,8 @@ public class Produto {
 	private Categoria categoria;
 
 	// relacionamento com produtoPedido
-	@OneToOne(mappedBy = "produto")
-	private ProdutoPedido produtoPedido;
+//	@OneToOne(mappedBy = "produto")
+//	private ProdutoPedido produtoPedido;
 
 	public Integer getProdutoId() {
 		return produtoId;
@@ -87,11 +85,11 @@ public class Produto {
 		this.quantidadeEmEstoque = quantidadeEmEstoque;
 	}
 
-	public Calendar getDataDeCadastroDoProduto() {
+	public LocalDate getDataDeCadastroDoProduto() {
 		return dataDeCadastroDoProduto;
 	}
 
-	public void setDataDeCadastroDoProduto(Calendar dataDeCadastroDoProduto) {
+	public void setDataDeCadastroDoProduto(LocalDate dataDeCadastroDoProduto) {
 		this.dataDeCadastroDoProduto = dataDeCadastroDoProduto;
 	}
 
@@ -111,12 +109,12 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
-	public ProdutoPedido getProdutoPedido() {
-		return produtoPedido;
-	}
-
-	public void setProdutoPedido(ProdutoPedido produtoPedido) {
-		this.produtoPedido = produtoPedido;
-	}
+//	public ProdutoPedido getProdutoPedido() {
+//		return produtoPedido;
+//	}
+//
+//	public void setProdutoPedido(ProdutoPedido produtoPedido) {
+//		this.produtoPedido = produtoPedido;
+//	}
 
 }

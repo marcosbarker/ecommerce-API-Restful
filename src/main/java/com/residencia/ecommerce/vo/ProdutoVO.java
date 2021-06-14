@@ -1,8 +1,10 @@
 package com.residencia.ecommerce.vo;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 public class ProdutoVO {
@@ -15,17 +17,17 @@ public class ProdutoVO {
 	@NotBlank(message = "Insira a descrição do produto a ser cadastrado")
 	private String descricao;
 	
-	@NotBlank(message = "Insira o valor do produto a ser cadastrado")
+	@NotNull(message = "Insira o valor do produto a ser cadastrado")
 	private Double preco;
 	
-	@NotBlank(message = "Insira a quantidade do estoque do produto a ser cadastrado")
+	@NotNull(message = "Insira a quantidade do estoque do produto a ser cadastrado")
 	private Integer quantidadeEmEstoque;
 	
-	private Calendar dataDeCadastroDoProduto;
+	private String nomeCategoria;
 	
-	private String imagem;
+	private LocalDate dataDeCadastroDoProduto;
+	
 	private CategoriaVO categoriaVO;
-	private ProdutoPedidoVO produtoPedidoVO;
 
 	public Integer getProdutoId() {
 		return produtoId;
@@ -67,20 +69,12 @@ public class ProdutoVO {
 		this.quantidadeEmEstoque = quantidadeEmEstoque;
 	}
 
-	public Calendar getDataDeCadastroDoProduto() {
+	public LocalDate getDataDeCadastroDoProduto() {
 		return dataDeCadastroDoProduto;
 	}
 
-	public void setDataDeCadastroDoProduto(Calendar dataDeCadastroDoProduto) {
+	public void setDataDeCadastroDoProduto(LocalDate dataDeCadastroDoProduto) {
 		this.dataDeCadastroDoProduto = dataDeCadastroDoProduto;
-	}
-
-	public String getImagem() {
-		return imagem;
-	}
-
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
 	}
 
 	public CategoriaVO getCategoriaVO() {
@@ -91,13 +85,19 @@ public class ProdutoVO {
 		this.categoriaVO = categoriaVO;
 	}
 
-	public ProdutoPedidoVO getProdutoPedidoVO() {
-		return produtoPedidoVO;
+	public String getNomeCategoria() {
+		return nomeCategoria;
 	}
 
-	public void setProdutoPedidoVO(ProdutoPedidoVO produtoPedidoVO) {
-		this.produtoPedidoVO = produtoPedidoVO;
+	public void setNomeCategoria(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
 	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+	
+	
 	
 	
 
