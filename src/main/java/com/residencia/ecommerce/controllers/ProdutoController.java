@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.residencia.ecommerce.services.ProdutoService;
+import com.residencia.ecommerce.vo.CategoriaVO;
 import com.residencia.ecommerce.vo.ProdutoVO;
 import com.residencia.ecommerce.vo.Views.ProdutoView;
 
@@ -33,6 +34,13 @@ public class ProdutoController {
 	public ResponseEntity<ProdutoView> findById(@PathVariable Integer id) {
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(produtoService.findById(id), headers, HttpStatus.OK);
+	}
+	
+	@GetMapping("/nome/{name}")
+	public ResponseEntity<ProdutoView> findByName(@PathVariable String name) {
+		HttpHeaders headers = new HttpHeaders();
+		
+		return new ResponseEntity<>(produtoService.findByName(name), headers, HttpStatus.OK);
 	}
 
 	@GetMapping("/listar-todos")
@@ -51,7 +59,7 @@ public class ProdutoController {
 		return produtoService.count();
 	}
 
-	@PostMapping
+	@PostMapping("/novo-produto")
 	public ResponseEntity<ProdutoView> save(@Valid @RequestBody ProdutoVO produtoVO) {
 
 		HttpHeaders headers = new HttpHeaders();

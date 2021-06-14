@@ -105,7 +105,7 @@ public class PedidoController {
 			PedidoClienteView novoPedidoVO = pedidoService.novoPedido(cadastrarNovoPedidoVO);
 			
 			if (null != novoPedidoVO) {
-				return new ResponseEntity<>("Pedido Realizado com Sucesso!\n  {novoPedidoVO} ", headers, HttpStatus.OK);
+				return new ResponseEntity<>("Pedido Realizado com Sucesso!\n Numero do seu pedido: " + novoPedidoVO.getNumeroDoPedido() + "\n NotaFiscal Enviada para seu e-mail"  , headers, HttpStatus.OK);
 			}
 			
 			else {

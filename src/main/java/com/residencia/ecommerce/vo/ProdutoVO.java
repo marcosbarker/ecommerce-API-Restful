@@ -3,6 +3,7 @@ package com.residencia.ecommerce.vo;
 import java.time.LocalDate;
 import java.util.Calendar;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -18,6 +19,7 @@ public class ProdutoVO {
 	private String descricao;
 	
 	@NotNull(message = "Insira o valor do produto a ser cadastrado")
+	@Min (value = 1, message = "Valor invalido" )
 	private Double preco;
 	
 	@NotNull(message = "Insira a quantidade do estoque do produto a ser cadastrado")

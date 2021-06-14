@@ -80,23 +80,6 @@ public class ClienteController {
 		return clienteService.count();
 	}
 	
-//	@PostMapping("/cadastro")
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public ResponseEntity<ClienteVO> save(@Valid @RequestBody ClienteVO clienteVO) throws MessagingException, EmailException{
-//		HttpHeaders headers = new HttpHeaders();
-//	
-//		ClienteVO novoClienteVO = clienteService.save(clienteVO);
-//		
-//		if(null != novoClienteVO) {
-//			emailService.emailCadastro(novoClienteVO);
-//			return new ResponseEntity<>(novoClienteVO, headers, HttpStatus.OK);
-//		}
-//			
-//		else {
-//			return new ResponseEntity<>(novoClienteVO, headers, HttpStatus.BAD_REQUEST);
-//		}
-//	}
-	
 	@PostMapping("/cadastro")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<String> save(@Valid @RequestBody ClienteVO clienteVO) throws MessagingException, EmailException{
@@ -136,9 +119,10 @@ public class ClienteController {
 			}	
 	}
 	
-	@PutMapping("/{id}")
-    public ClienteVO update(@PathVariable Integer id, @RequestBody ClienteVO clienteVO){
-       return clienteService.update(clienteVO, id);
+	@PutMapping("/atualizar-infos")
+    public ClienteVO update(@Valid @RequestBody ClienteVO NovasInfosCliente){
+		ClienteVO ClienteParaAtt = clienteService.converteEntidadeParaVO(clienteService.getCliente());
+		return clienteService.update(ClienteParaAtt, NovasInfosCliente);
     }
 	
 	@DeleteMapping("/deletar-minha-conta")
