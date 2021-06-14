@@ -198,21 +198,35 @@ public class EmailService {
 			sBuilder.append("		</div>\r\n");
 			sBuilder.append("		<br/>\r\n");
 			sBuilder.append("		<center>\r\n");
-			sBuilder.append("		<table border='1' cellpadding='5'  >\r\n");
-			sBuilder.append("<tr><th>Nº Pedido</th><th>Cliente</th><th>Valor Total</th><th>Data Entrega</th></tr>\r\n");
+			sBuilder.append("		<table border='1' cellpadding='6'  >\r\n");
+			sBuilder.append("<tr> <th>Nº Pedido</th><th>Cliente</th><th>Valor Total</th><th>Data Entrega</th> <th>Produto</th> <th>Quantidade</th>  </tr>\r\n");
 
 			sBuilder.append("		<tr>\r\n");
+			
 			sBuilder.append("			<td>\r\n");
 			sBuilder.append(pedido.getNumeroDoPedido());
 			sBuilder.append("			</td>\r\n");
+			
 			sBuilder.append("			<td>\r\n");
 			sBuilder.append(pedido.getCliente().getNome());
 			sBuilder.append("			</td>\r\n");
+			
 			sBuilder.append("			<td>\r\n");
 			sBuilder.append(dfMoeda.format(pedido.getValorTotalDoPedido()));
 			sBuilder.append("			</td>\r\n");
+			
 			sBuilder.append("			<td>\r\n");
 			sBuilder.append(pedido.getDataDoPedido().plusDays(ThreadLocalRandom.current().nextInt(3,15)));
+			sBuilder.append("			</td>\r\n");
+			sBuilder.append("		</tr>\r\n");
+			
+			sBuilder.append("			<td>\r\n");
+			sBuilder.append(pedido.getProdutoPedido().getProduto().getNome());
+			sBuilder.append("			</td>\r\n");
+			sBuilder.append("		</tr>\r\n");
+			
+			sBuilder.append("			<td>\r\n");
+			sBuilder.append(pedido.getProdutoPedido().getQuantidade());
 			sBuilder.append("			</td>\r\n");
 			sBuilder.append("		</tr>\r\n");
 

@@ -104,8 +104,9 @@ public class ClienteService {
 		return converteEntidadeParaVO(novoCliente);
 	}
 
-	public ClienteVO update(ClienteVO clienteVO, Integer id) {
-		Cliente cliente = converteVOParaEntidade(clienteVO, id);
+	public ClienteVO update(ClienteVO clienteVO, ClienteVO novaInfos) {
+		//Cliente cliente = converteVOParaEntidade(clienteVO, novaInfos);
+		Cliente cliente = converteVOParaEntidade(clienteVO, null);
 		Cliente novoCliente = clienteRepository.save(cliente);
 		return converteEntidadeParaVO(novoCliente);
 	}

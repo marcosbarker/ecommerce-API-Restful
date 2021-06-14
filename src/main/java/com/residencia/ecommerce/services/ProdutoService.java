@@ -9,10 +9,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.residencia.ecommerce.entities.Categoria;
 import com.residencia.ecommerce.entities.Produto;
 import com.residencia.ecommerce.repositories.CategoriaRepository;
 import com.residencia.ecommerce.repositories.ProdutoRepository;
-
+import com.residencia.ecommerce.vo.CategoriaVO;
 import com.residencia.ecommerce.vo.ProdutoVO;
 import com.residencia.ecommerce.vo.Views.ProdutoView;
 
@@ -33,6 +34,12 @@ public class ProdutoService {
 
 	public ProdutoView findById(Integer id) {
 		Produto produto = produtoRepository.findById(id).get();
+		ProdutoView produtoView = converteEntidadeParaView(produto);
+		return produtoView;
+	}
+	
+	public ProdutoView findByName(String name) {
+		Produto produto = produtoRepository.findByNome(name);
 		ProdutoView produtoView = converteEntidadeParaView(produto);
 		return produtoView;
 	}
