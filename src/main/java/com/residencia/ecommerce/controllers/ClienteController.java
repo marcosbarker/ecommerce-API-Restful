@@ -113,7 +113,7 @@ public class ClienteController {
 						
 						ClienteVO novoClienteVO = clienteService.save(clienteVO);
 						emailService.emailCadastro(novoClienteVO, clienteVO.getSenha());
-						return new ResponseEntity<>("Cadastro Efetuado com Sucesso", headers, HttpStatus.OK);
+						return new ResponseEntity<>("Parabens" + clienteVO.getNome() + " seu cadastro foi efetuado com Sucesso", headers, HttpStatus.OK);
 						
 						}
 						else {

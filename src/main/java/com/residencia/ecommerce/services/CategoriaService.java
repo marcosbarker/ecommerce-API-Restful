@@ -13,6 +13,7 @@ import com.residencia.ecommerce.entities.Produto;
 import com.residencia.ecommerce.repositories.CategoriaRepository;
 import com.residencia.ecommerce.vo.CategoriaVO;
 import com.residencia.ecommerce.vo.ProdutoVO;
+import com.residencia.ecommerce.vo.Views.ProdutoView;
 
 
 @Service
@@ -85,18 +86,23 @@ public class CategoriaService {
 	}
 
 	public CategoriaVO converteEntidadeParaVO(Categoria categoria) {
+		
 		CategoriaVO categoriaVO = new CategoriaVO();
-		List<ProdutoVO> listProdutoVO = new ArrayList<>();
+		
+		List<ProdutoView> listProdutoView = new ArrayList<>();
 		
 		categoriaVO.setCategoriaId(categoria.getCategoriaId());
 		categoriaVO.setNome(categoria.getNome());
 		categoriaVO.setDescricao(categoria.getDescricao());
 		
-		if (categoriaVO.getListProdutoVO() != null) { 
+		if (categoria.getListProduto() != null) { 
 		for (Produto lProduto : categoria.getListProduto()) {
-			listProdutoVO.add(produtoService.converteEntidadeParaVO(lProduto));
+			
+			listProdutoView.add(produtoService.converteEntidadeParaView(lProduto));
+			
 		}
-		categoriaVO.setListProdutoVO(listProdutoVO);
+		
+		categoriaVO.setListProdutoVO(listProdutoView);
 		
 		}
 		return categoriaVO;
@@ -104,23 +110,25 @@ public class CategoriaService {
 
 	public Categoria converteVOParaEntidade(CategoriaVO categoriaVO) {
 		Categoria categoria = new Categoria();
-		List<Produto> listProduto = new ArrayList<>();
+		
 		
 		categoria.setCategoriaId(categoriaVO.getCategoriaId());
 		categoria.setNome(categoriaVO.getNome());
 		categoria.setDescricao(categoriaVO.getDescricao());
 		
-		if (categoriaVO.getListProdutoVO() != null) {
 		
-		for (ProdutoVO lProdutoVO : categoriaVO.getListProdutoVO()) {
-			listProduto.add(produtoService.converteVOParaEntidade(lProdutoVO));
-		}
-			categoria.setListProduto(listProduto);
-		}
 		return categoria;
 	}
 	
-	public void delete (Integer id) {
-		categoriaRepository.deleteById(id);
+	public void delete (String nome) {
+		
+		Categoria categoria = categoriaRepository.findByNome(nome);
+		
+		for (Produto produto : categoria.getListProduto()) {
+			produto.setCategoria(categoriaRepository.findByNome("SEM CATEGORIA"));
+		}
+		
+		categoriaRepository.deleteById(categoria.getCategoriaId());
+		
 	}
 }
