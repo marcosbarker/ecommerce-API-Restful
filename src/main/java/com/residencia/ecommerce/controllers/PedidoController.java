@@ -2,6 +2,7 @@ package com.residencia.ecommerce.controllers;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.residencia.ecommerce.exception.EmailException;
+import com.residencia.ecommerce.repositories.ProdutoRepository;
+import com.residencia.ecommerce.services.ClienteService;
 import com.residencia.ecommerce.services.PedidoService;
+import com.residencia.ecommerce.services.ProdutoService;
 import com.residencia.ecommerce.vo.CadastrarNovoPedidoVO;
 import com.residencia.ecommerce.vo.PedidoVO;
 import com.residencia.ecommerce.vo.Views.PedidoClienteView;
@@ -29,11 +34,32 @@ public class PedidoController {
 
 	@Autowired
 	PedidoService pedidoService;
+	
+	@Autowired
+	ClienteService clienteService;
+	
+	@Autowired
+	ProdutoRepository produtoRepository;
 
 	@GetMapping("/{id}")
 	public ResponseEntity<PedidoClienteView> findById(@PathVariable Integer id) {
 		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(pedidoService.findById(id), headers, HttpStatus.OK);
+	}
+	
+	@GetMapping("/meus-pedido")
+	public ResponseEntity<List<PedidoClienteView>> findMyInfo() {
+		HttpHeaders headers = new HttpHeaders();
+		
+		List<PedidoClienteView> lPedidosCliente = pedidoService.findMyPedidos(clienteService.getCliente());
+		
+		if (lPedidosCliente != null) {
+			return new ResponseEntity<>(lPedidosCliente, headers, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(lPedidosCliente, headers, HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	@GetMapping("/listar-todos")
@@ -68,17 +94,33 @@ public class PedidoController {
 	
 	
 	@PostMapping("/novo-pedido")
-	public ResponseEntity<PedidoClienteView> novoPedido(@Valid @RequestBody CadastrarNovoPedidoVO cadastrarNovoPedidoVO) {
+	public ResponseEntity<String> novoPedido(@Valid @RequestBody CadastrarNovoPedidoVO cadastrarNovoPedidoVO) throws MessagingException, EmailException {
 
 		HttpHeaders headers = new HttpHeaders();
 
-		PedidoClienteView novoPedidoVO = pedidoService.novoPedido(cadastrarNovoPedidoVO);
-
-		if (null != novoPedidoVO)
-			return new ResponseEntity<>(novoPedidoVO, headers, HttpStatus.OK);
-		else
-			return new ResponseEntity<>(novoPedidoVO, headers, HttpStatus.BAD_REQUEST);
+		
+		
+		if (produtoRepository.findByNome(cadastrarNovoPedidoVO.getNomeProduto()) != null) {
+			
+			PedidoClienteView novoPedidoVO = pedidoService.novoPedido(cadastrarNovoPedidoVO);
+			
+			if (null != novoPedidoVO) {
+				return new ResponseEntity<>("Pedido Realizado com Sucesso!\n  {novoPedidoVO} ", headers, HttpStatus.OK);
+			}
+			
+			else {
+				return new ResponseEntity<>("Insira os Dados corretos", headers, HttpStatus.BAD_REQUEST);
+			}
+			
+		}
+		else {
+			
+			return new ResponseEntity<>("Insira um produto existente", headers, HttpStatus.BAD_REQUEST);
+			
+		}
+		
 	}
+	
 
 	@PutMapping("/{id}")
 	public PedidoVO update(@RequestBody PedidoVO pedidoVO, Integer id) {

@@ -49,11 +49,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	 protected void configure(HttpSecurity http) throws Exception {
 		    http.csrf().disable().authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/cliente/cadastro").permitAll()
+			.antMatchers(HttpMethod.POST, "/cliente/esqueci-senha").permitAll()
 			.antMatchers(HttpMethod.GET, "/categoria/id/{id}").permitAll()
 	        .anyRequest().authenticated()
 	        .and()
 	        .httpBasic();
-		    
 		  }
 }
 

@@ -100,7 +100,9 @@ public class ProdutoPedidoService {
 	public ProdutoPedido converteVOParaEntidade(ProdutoPedidoVO produtoPedidoVO) {
 		ProdutoPedido produtoPedido = new ProdutoPedido();
 		
+		
 		produtoPedido.setProdutoPedidoId(produtoPedidoVO.getProdutoPedidoId());
+		
 		produtoPedido.setPreco(produtoPedidoVO.getPreco());
 		produtoPedido.setQuantidade(produtoPedidoVO.getQuantidade());
 		produtoPedido.setProduto(produtoService.converteVOParaEntidade(produtoPedidoVO.getProdutoVO()));

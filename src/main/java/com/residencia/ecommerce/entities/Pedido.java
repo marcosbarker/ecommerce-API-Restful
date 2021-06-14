@@ -1,6 +1,7 @@
 package com.residencia.ecommerce.entities;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ public class Pedido {
 	private double valorTotalDoPedido;
 	
 	@Column(name = "datadopedido")
-	private Calendar dataDoPedido;
+	private LocalDate dataDoPedido;
 	
 	@Column(name = "status")
 	private String status;
@@ -67,11 +68,11 @@ public class Pedido {
 		this.valorTotalDoPedido = valorTotalDoPedido;
 	}
 
-	public Calendar getDataDoPedido() {
+	public LocalDate getDataDoPedido() {
 		return dataDoPedido;
 	}
 
-	public void setDataDoPedido(Calendar dataDoPedido) {
+	public void setDataDoPedido(LocalDate dataDoPedido) {
 		this.dataDoPedido = dataDoPedido;
 	}
 

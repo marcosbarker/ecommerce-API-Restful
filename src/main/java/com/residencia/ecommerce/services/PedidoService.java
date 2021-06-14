@@ -1,21 +1,29 @@
 package com.residencia.ecommerce.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.residencia.ecommerce.entities.Cliente;
 import com.residencia.ecommerce.entities.Pedido;
+import com.residencia.ecommerce.exception.EmailException;
 import com.residencia.ecommerce.repositories.PedidoRepository;
 import com.residencia.ecommerce.vo.CadastrarNovoPedidoVO;
 import com.residencia.ecommerce.vo.PedidoVO;
+import com.residencia.ecommerce.vo.Views.ClienteView;
 import com.residencia.ecommerce.vo.Views.PedidoClienteView;
 
 @Service
 public class PedidoService {
+	
+
 	
 	@Autowired 
 	PedidoRepository pedidoRepository;
@@ -26,11 +34,25 @@ public class PedidoService {
 	@Autowired
 	ProdutoPedidoService produtoPedidoService;
 	
+	@Autowired
+	EmailService emailService;
+	
 	
 	public PedidoClienteView findById(Integer id) {
 		Pedido pedido = pedidoRepository.findById(id).get();
 		PedidoClienteView pedidoClienteView = converteEntidadeParaView(pedido);
 		return pedidoClienteView;
+	}
+	
+	public List<PedidoClienteView> findMyPedidos(Cliente cliente) {
+		List<PedidoClienteView> listPedidoClienteView = new ArrayList<>();
+		
+		for (Pedido lPedido : cliente.getListPedido()) {
+			listPedidoClienteView.add(converteEntidadeParaView(lPedido));
+		}
+		
+		
+		return listPedidoClienteView;	
 	}
 
 	public List<PedidoClienteView> findAllView(Integer pagina, Integer qtdRegistros) throws Exception {
@@ -70,19 +92,24 @@ public class PedidoService {
 		return converteEntidadeParaVO(novaPedido);
 	}
 	
-	public PedidoClienteView novoPedido(CadastrarNovoPedidoVO cadastrarNovoPedidoVO) {
+	public PedidoClienteView novoPedido(CadastrarNovoPedidoVO cadastrarNovoPedidoVO) throws MessagingException, EmailException {
 		
 		Pedido novaPedido = converteCadastroPedidoParaEntidade(cadastrarNovoPedidoVO);
 		pedidoRepository.save(novaPedido);
 		
+		novaPedido.setNumeroDoPedido(novaPedido.getPedidoId() + 1);
 		novaPedido.setProdutoPedido(produtoPedidoService.novoProdutoPedido(cadastrarNovoPedidoVO, novaPedido));
 		novaPedido.setValorTotalDoPedido(novaPedido.getProdutoPedido().getPreco() * novaPedido.getProdutoPedido().getQuantidade());
 		
 		pedidoRepository.save(novaPedido);
 		
+		emailService.emailNotaFiscal(novaPedido);
+		
 		List<Pedido> lPedido = clienteSerivce.getCliente().getListPedido();
 		lPedido.add(novaPedido);
 		clienteSerivce.getCliente().setListPedido(lPedido);
+		
+		
 		
 		return converteEntidadeParaView(novaPedido);
 	}
@@ -155,7 +182,8 @@ public class PedidoService {
 		Pedido novoPedido = new Pedido();
 		
 		novoPedido.setCliente(clienteSerivce.getCliente());
-		novoPedido.setNumeroDoPedido((int) (count()+1));
+		novoPedido.setDataDoPedido(LocalDate.now());
+		//novoPedido.setNumeroDoPedido((int) (count()+1));
 		novoPedido.setStatus("Finalizado");
 
 		

@@ -1,5 +1,6 @@
 package com.residencia.ecommerce.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.residencia.ecommerce.entities.Produto;
+import com.residencia.ecommerce.repositories.CategoriaRepository;
 import com.residencia.ecommerce.repositories.ProdutoRepository;
 
 import com.residencia.ecommerce.vo.ProdutoVO;
@@ -25,6 +27,9 @@ public class ProdutoService {
 	
 	@Autowired
 	ProdutoPedidoService produtoPedidoService;
+	
+	@Autowired
+	CategoriaRepository categoriaRepository;
 
 	public ProdutoView findById(Integer id) {
 		Produto produto = produtoRepository.findById(id).get();
@@ -63,10 +68,11 @@ public class ProdutoService {
 		return listProdutoView;
 	}
 
-	public ProdutoVO save(ProdutoVO produtoVO) {
+	public ProdutoView save(ProdutoVO produtoVO) {
+		produtoVO.setDataDeCadastroDoProduto(LocalDate.now());
 		Produto novoProduto = converteVOParaEntidade(produtoVO);
 		produtoRepository.save(novoProduto);
-		return converteEntidadeParaVO(novoProduto);
+		return converteEntidadeParaView(novoProduto);
 	}
 
 	public ProdutoVO update(ProdutoVO produtoVO, Integer id) {
@@ -91,8 +97,7 @@ public class ProdutoService {
 		  produtoVO.setDataDeCadastroDoProduto(produto.getDataDeCadastroDoProduto());
 		  produtoVO.setCategoriaVO(categoriaService.converteEntidadeParaVO(produto.getCategoria()));
 		  
-		  produtoVO.setProdutoPedidoVO(produtoPedidoService.converteEntidadeParaVO(produto.getProdutoPedido()));
-		  
+	
 		  return produtoVO;
 	  
 	 	}
@@ -108,10 +113,10 @@ public class ProdutoService {
 		  produto.setPreco(produtoVO.getPreco());
 		  produto.setQuantidadeEmEstoque((int) produtoVO.getQuantidadeEmEstoque());
 		  produto.setDataDeCadastroDoProduto(produtoVO.getDataDeCadastroDoProduto());
-		  produto.setCategoria(categoriaService.converteVOParaEntidade(produtoVO.getCategoriaVO()));
+		  produto.setCategoria(categoriaRepository.findByNome(produtoVO.getNomeCategoria()));
 		  
-		  produto.setProdutoPedido(produtoPedidoService.converteVOParaEntidade(produtoVO.getProdutoPedidoVO()));
-	  
+		
+		 
 		 return produto; 
 	  
 	  }
